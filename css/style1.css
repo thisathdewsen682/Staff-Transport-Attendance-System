@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body::before {
+  content: "";
+  background-image: url(../img/bus1.jpg);
+  position: fixed;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2; /* Adjust the opacity value as needed (0.5 means 50% opacity) */
+  z-index: -1; /* Place it behind the content */
+}
+
+body {
+  background-size: cover;
+
+}
+
+.gradient-custom {
+/* fallback for old browsers */
+background: #6a11cb;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+
+
+.bus-no{
+  border-radius: 10px 10px;
+  width: 300px;
+  padding: 10px 25px;
+background-color: #FFDEE9;
+background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+
+
+
+
+  margin: 20px 5px 5px 5px;
+  
+}
+input[type='text']{
+  border:none;
+  padding: 3px;
+  border-radius: 4px;
+}
+.in{
+  color: blue;
+}
+
+.out{
+  color:red;
+}
+a{
+  text-decoration: none;
+}
+.logout{
+  margin-left: 9px;
+  color: white;
+  background-color: rgba(241, 72, 42, 0.767);
+  
+}
