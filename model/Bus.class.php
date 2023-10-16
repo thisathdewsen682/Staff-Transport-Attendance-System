@@ -2,19 +2,26 @@
 
 class Bus {
     //var $id;
-    var $registration_id;
-    var $route;
+    var $vehicle_no;
+    var $route_no;
+    var $route_name;
 
     function  User(
         //$id,
-        $registration_id,
-        $route
+        $vehicle_no,
+        $route_no,
+        $route_name
 
     ) {
         //$this->id = $id;
-        $this->registration_id = $registration_id;
-        $this->route = $route;
+        $this->vehicle_no = $vehicle_no;
+        $this->route_no = $route_no;
+        $this->route_name = $route_name;
 
+    }
+
+    function insertNewRoute ( $conn, $obj, $rno ) {
+        //check route no already exist
     }
 
 }

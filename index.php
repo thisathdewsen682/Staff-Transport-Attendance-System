@@ -30,7 +30,55 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <?php require_once( 'includes/header.php' );
 ?>
 
+
+    <div class="fade modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Route</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form method='POST'>
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                                name='vehicle_no' placeholder='VEHICLE NO'>
+
+                        </div>
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                                name='route_no' placeholder='ROUTE NO' required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                                name='route_name' placeholder='ROUTE NAME' required>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class='container mt-5'>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            Add New Route
+        </button>
         <div class='row row  justify-content-center'>
 
             <?php
@@ -61,14 +109,15 @@ $result = mysqli_query( $conn, $sql );
         echo "<div class='col-sm-4 col-md-4 col-lg-4 bus-no'>
                     <h6 class='in'>Mark In:" . $markIn . "</h6>
                     <h6 class='out'>Mark Out:" . $markOut . "</h6>
-                    <h6 class='out w-100 text-right text-center''><a href=''>Report</a>
+                    <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
+Report</a>
 </h6>
 
                     
                     <h3 class='text-center'>Route " . $row[ 'route_no' ] . "</h3>
                     <h4 class='text-center'>" . $row[ 'route' ] . "</h4>
-                    <input type='text' name='vhno' placeholder='Vehicle No' class='text-center w-100''>
-                    <input type='text' name='employee_count' placeholder='Employee Count' class='text-center mt-2 w-100'>
+                    <input type='text' name='vhno' placeholder='Vehicle No' class='text-center w-100 atform''>
+                    <input type='text' name='employee_count' placeholder='Employee Count' class='text-center mt-2 w-100 atform'>
 
                     <input type='hidden' name='rno' placeholder='Vehicle No' class='text-center w-100' value='" . $row[ 'route_no' ] . "'>
                     <input type='hidden' name='rname' placeholder='Employee Count' class='text-center mt-2 w-100' value='" . $row[ 'route' ] . "'>
@@ -87,8 +136,11 @@ $result = mysqli_query( $conn, $sql );
         </div>
     </div>
 
+
+
+
     <script src='bootstrap/js/bootstrap.js'></script>
-    <script src='ajax/time.js'></script>
+    <script src='js/time.js'></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var markInButtons = document.querySelectorAll('.mark-in');
