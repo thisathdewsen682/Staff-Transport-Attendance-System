@@ -19,7 +19,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Transpor Vehicle Attendace System</title>
+    <title>Transport Vehicle Attendace System</title>
+    <link rel="icon" type="image/x-icon" href="img/icon.png">
 
     <link rel='stylesheet' href='bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='css/style1.css'>
@@ -38,8 +39,11 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add New Route</h4>
+                    <h4 class="">Full Report</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
                 </div>
+
 
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -80,6 +84,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <div class='container mt-5'>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Add New Route
+        </button>
+        <button type="button" class="btn btn-danger">
+            <a href="report.php?rno=all" class=" report">Full Report</a>
         </button>
         <div class='row row  justify-content-center'>
 
@@ -241,9 +248,11 @@ Report</a>
                 if (responseText.includes("This Route No Already Added")) {
                     console.log(xhr.responseText);
                     document.getElementById('errorMsg').style.display = 'block';
+                    document.getElementById('successMsg').style.display = 'none';
                     document.getElementById('errorMsg').textContent = responseText;
                 } else if (responseText.includes("Success")) {
                     document.getElementById('successMsg').style.display = 'block';
+                    document.getElementById('errorMsg').style.display = 'none';
                     document.getElementById('successMsg').textContent = responseText;
                 } else {
                     document.getElementById('errorMsg').style.display = 'block';
@@ -252,6 +261,9 @@ Report</a>
             } else {
                 document.getElementById('errorMsg').style.display = 'block';
             }
+
+
+            document.getElementById('route').reset();
         };
 
         xhr.onerror = function() {
@@ -259,6 +271,17 @@ Report</a>
         };
 
         xhr.send(formData);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the button with class 'btn-close'
+        var closeButton = document.querySelector('.btn-close');
+
+        // Add an event listener to the button
+        closeButton.addEventListener('click', function() {
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'none';
+        });
     });
     </script>
 

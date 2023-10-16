@@ -70,3 +70,10 @@ a{
   background-color: rgba(241, 72, 42, 0.767);
   
 }
+
+.table-container{
+  padding: 10px;
+}
+.report{
+  color:white;
+}

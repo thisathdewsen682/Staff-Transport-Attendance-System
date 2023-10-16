@@ -92,4 +92,25 @@ class Attendance {
         }
     }
 
+    function viewAttendanceByID( $conn, $routeNo, $report ) {
+
+        $sql = "SELECT * FROM   attendance_tbl WHERE route_no = '" . $routeNo . "'";
+        //echo $sql;
+
+        $result = mysqli_query( $conn, $sql );
+
+        return $result;
+
+    }
+
+    function viewAllAttendance( $conn, $report ) {
+
+        $sql = 'SELECT * FROM   attendance_tbl';
+
+        $result = mysqli_query( $conn, $sql );
+
+        return $result;
+
+    }
+
 }
