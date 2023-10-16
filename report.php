@@ -32,7 +32,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
     <script>
     // Function to prompt for password and set session variable if correct
-    function promptForPassword() {
+    /* function promptForPassword() {
         var enteredPassword = prompt("Please enter the password:");
 
         // Assuming you have a variable `correctPassword` that contains the correct password.
@@ -46,7 +46,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             window.location.href = 'index.php'; // Redirect to login page if incorrect
         }
     }
-
+*/
     promptForPassword()
     </script>
 
@@ -60,7 +60,13 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <div class='table-container '>
 
         <table class='table table-info pt-3' id='attendanceTable'>
-            <thead class='thead-dark '>
+
+            <input type="date" id="startDate" name="startDate" class='m-2 p-1'>
+
+
+            <input type="date" id="endDate" name="endDate" class='p-1'>
+
+            <thead class='thead-dark'>
                 <tr>
 
                     <th class='text-center' scope='col'>Route No</th>
@@ -96,7 +102,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
            
 
                     while( $row = mysqli_fetch_assoc( $result ) ) {
-                    
+                    $id = $row['attendance_id'];
                            echo "<tr class = 'table-success text-center'>
                         <td>".$row[ 'route_no' ]."</td>
                         <td>".$row[ 'route' ]."</td>
@@ -108,7 +114,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'status' ]."</td>
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
-                        <td><a href = 'edit.php'>Edit</td> 
+                        <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
                         <td><a href = 'delete_process.php' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>       
                       
@@ -119,6 +125,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 
             }else if ( isset( $_GET[ 'rno' ] ) ) {
+           
             $report_id = $_GET[ 'rno' ];
             $report = new Attendance( '', '', '', '', '', '', '', '', '', '' );
 
@@ -127,7 +134,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
            
 
                     while( $row = mysqli_fetch_assoc( $result ) ) {
-                    
+                     $id = $row['attendance_id'];
+
+                     
                            echo "<tr class = 'table-success'>
                         <td>".$row[ 'route_no' ]."</td>
                         <td>".$row[ 'route' ]."</td>
@@ -139,8 +148,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'status' ]."</td>
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
-                        <td></td> 
-                        <td></td> 
+                        <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
+                        <td><a href = 'delete_process.php' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>
                       
                         
@@ -148,18 +157,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
                     }
 
-
-
-
-
-
-            }
+            }   
         
-
-
-
-
-
                     ?>
 
 
@@ -173,7 +172,39 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     </script>
     <script>
     $(document).ready(function() {
-        $('#attendanceTable').DataTable();
+        var table = $('#attendanceTable').DataTable({
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+
+                    if ($(column.header()).hasClass('searchable')) {
+                        var input = $('<input type="text" class="form-control">')
+                            .appendTo($(column.footer()).empty())
+                            .on('keyup', function() {
+                                column.search(this.value).draw();
+                            });
+                    }
+                });
+            }
+        });
+
+        $('#startDate, #endDate').on('change', function() {
+            table.draw();
+        });
+
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+
+                if ((startDate === '' && endDate === '') ||
+                    (startDate <= data[4] && endDate >= data[4])) {
+                    return true;
+                }
+
+                return false;
+            }
+        );
     });
     </script>
 </body>

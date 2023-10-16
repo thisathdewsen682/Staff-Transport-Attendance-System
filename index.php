@@ -39,7 +39,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add New Route</h4>
-                    <h4 class="">Full Report</h4>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 
                 </div>
@@ -123,7 +123,7 @@ Report</a>
 </h6>
 
                     
-                    <h3 class='text-center'>Route " . $row[ 'route_no' ] . "</h3>
+                    <h4 class='text-center'>Route " . $row[ 'route_no' ] . "</h4>
                     <h4 class='text-center'>" . $row[ 'route' ] . "</h4>
                     <input type='text' name='vhno' placeholder='Vehicle No' class='text-center w-100 atform''>
                     <input type='text' name='employee_count' placeholder='Employee Count' class='text-center mt-2 w-100 atform'>
