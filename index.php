@@ -43,28 +43,30 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form method='POST'>
+                    <form method='POST' id='route'>
                         <div class="mb-3">
 
-                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                            <input type="text" class="form-control" id="vehicle_no" aria-describedby="nameHelp"
                                 name='vehicle_no' placeholder='VEHICLE NO'>
 
                         </div>
                         <div class="mb-3">
 
-                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                            <input type="text" class="form-control" id="route_no" aria-describedby="nameHelp"
                                 name='route_no' placeholder='ROUTE NO' required>
 
                         </div>
 
                         <div class="mb-3">
 
-                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                            <input type="text" class="form-control" id="route_name" aria-describedby="nameHelp"
                                 name='route_name' placeholder='ROUTE NAME' required>
 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+                    <div id="successMsg" style="display:none; color:green;">Form submitted successfully!</div>
+                    <div id="errorMsg" style="display:none; color:red;">Error submitting form. Please try again.</div>
                 </div>
 
                 <!-- Modal footer -->
@@ -220,9 +222,48 @@ Report</a>
             });
         });
     });
+
+
+    //add new route submit
+
+    document.getElementById('route').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'controller/bus_process.php', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                console.log(xhr.responseText);
+                var responseText = xhr.responseText;
+                if (responseText.includes("This Route No Already Added")) {
+                    console.log(xhr.responseText);
+                    document.getElementById('errorMsg').style.display = 'block';
+                    document.getElementById('errorMsg').textContent = responseText;
+                } else if (responseText.includes("Success")) {
+                    document.getElementById('successMsg').style.display = 'block';
+                    document.getElementById('successMsg').textContent = responseText;
+                } else {
+                    document.getElementById('errorMsg').style.display = 'block';
+                    document.getElementById('errorMsg').textContent = responseText;
+                }
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        };
+
+        xhr.onerror = function() {
+            document.getElementById('errorMsg').style.display = 'block';
+        };
+
+        xhr.send(formData);
+    });
     </script>
 
-    </script>
+
+
 </body>
 
 </html>

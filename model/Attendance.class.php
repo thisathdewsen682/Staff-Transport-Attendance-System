@@ -41,29 +41,29 @@ class Attendance {
             echo 'Already marked In Please Mark Out Befor Mark in Again';
         } else {
             $sql = "INSERT INTO `attendance_tbl` (
-                        `route_no` ,
-                        `route` ,
-                        `vehicle_no` ,
-                        `staff_count` ,
-                        `date` ,
-                        `mark_in` ,
-                        `mark_out` ,
-                        `status` ,
-                        `created_at` ,
-                        `updated_at`
-                        )
-                        VALUES (
-                         '". $obj->route_no ."', 
-                         '". $obj->route ."', 
-                         '". $obj->vehicle_no ."', 
-                         '". $obj->staff_count ."', 
-                         '". $obj->date ."', 
-                         '". $obj->mark_in ."', 
-                         '". $obj->mark_out ."', 
-                         '". $obj->status ."', 
-                         '". $obj->created_at ."',
-                         '". $obj->updated_at ."'
-                        );";
+                            `route_no` ,
+                            `route` ,
+                            `vehicle_no` ,
+                            `staff_count` ,
+                            `date` ,
+                            `mark_in` ,
+                            `mark_out` ,
+                            `status` ,
+                            `created_at` ,
+                            `updated_at`
+                            )
+                            VALUES (
+                            '". $obj->route_no ."', 
+                            '". $obj->route ."', 
+                            '". $obj->vehicle_no ."', 
+                            '". $obj->staff_count ."', 
+                            '". $obj->date ."', 
+                            '". $obj->mark_in ."', 
+                            '". $obj->mark_out ."', 
+                            '". $obj->status ."', 
+                            '". $obj->created_at ."',
+                            '". $obj->updated_at ."'
+                            );";
 
             $result = mysqli_query( $conn, $sql );
 
