@@ -97,7 +97,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             
             
             if ( isset( $_GET['rno'] ) && $_GET['rno'] == 'all') {
-    
+     $report_id = $_GET[ 'rno' ];
             $report = new Attendance( '', '', '', '', '', '', '', '', '', '' );
 
             $result = $report->viewAllAttendance( $conn,$report );
@@ -118,7 +118,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
                         <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
-                        <td><a href = 'controller/delete_process.php?=$id' class = 'btn btn-danger'>Delete</td></td> 
+                        <td><a href = 'controller/delete_process.php?delid=$id&rno=$report_id' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>       
                       
                         
@@ -152,7 +152,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
                         <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
-                       <td><a href = 'controller/delete_process.php?=$id' class = 'btn btn-danger'>Delete</td></td> 
+                     <td><a href = 'controller/delete_process.php?delid=$id&rno=$report_id' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>
                       
                         
@@ -168,6 +168,21 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
             </tbody>
         </table>
+    </div>
+
+    <div class="msg">
+        <?php
+        if(isset( $_SESSION[ 'successmsg' ])){
+            echo '<span class="success">'.$_SESSION[ 'successmsg' ].'</span>';
+            unset( $_SESSION[ 'successmsg' ]);
+        }else if(isset($_SESSION[ 'erromsg' ])){
+            
+            echo '<span class="error">'.$_SESSION[ 'erromsg' ].'</span>';
+            unset($_SESSION[ 'erromsg' ]);
+        }
+    
+    ?>
+
     </div>
 
 

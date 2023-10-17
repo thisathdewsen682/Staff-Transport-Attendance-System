@@ -80,3 +80,15 @@ a{
 .home{
   color:white
 }
+
+.error{
+    padding: 10px;
+    margin-left: 5px;
+    background-color: red;
+}
+
+.success{
+   padding: 10px;
+   margin-left: 5px;
+    background-color: greenyellow;
+}

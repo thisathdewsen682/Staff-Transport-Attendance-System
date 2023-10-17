@@ -91,6 +91,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         <button type="button" class="btn btn-danger">
             <a href="report.php?rno=all" class=" report">Full Report</a>
         </button>
+        <button type="button" class="btn btn-success" id="markOutAll">Markout All</button>
+
         <div class='row row  justify-content-center'>
 
             <?php
@@ -131,7 +133,7 @@ Report</a>
                     <input type='text' name='vhno' placeholder='Vehicle No' class='text-center w-100 atform''>
                     <input type='text' name='employee_count' placeholder='Employee Count' class='text-center mt-2 w-100 atform'>
 
-                    <input type='hidden' name='rno' placeholder='Vehicle No' class='text-center w-100' value='" . $row[ 'route_no' ] . "'>
+                    <input type='hidden' name='rno' placeholder='Vehicle No' class='text-center w-100 rno' value='" . $row[ 'route_no' ] . "'>
                     <input type='hidden' name='rname' placeholder='Employee Count' class='text-center mt-2 w-100' value='" . $row[ 'route' ] . "'>
                     <div class='row mt-4'>
                         <div class='col-md-6 text-center d-flex justify-content-center'>
@@ -285,6 +287,40 @@ Report</a>
             document.getElementById('errorMsg').style.display = 'none';
             document.getElementById('successMsg').style.display = 'none';
         });
+    });
+
+    document.getElementById('markOutAll').addEventListener('click', function() {
+        var confirmMarkOut = confirm('Are you sure you want to mark out all vehicles on this route?');
+
+        if (confirmMarkOut) {
+
+
+            var rnoInputs = document.querySelectorAll('.rno');
+
+            // Loop through each element
+            rnoInputs.forEach(function(input) {
+                var routeNo = input.value;
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            //alert(xhr.responseText);
+                            location.reload();
+                        } else {
+                            console.error('Request failed:', xhr.status, xhr.statusText);
+                        }
+                    }
+                };
+
+                xhr.open('GET', 'markout_all.php?rno=' + routeNo, true);
+                xhr.send();
+            });
+
+
+
+        }
     });
     </script>
 

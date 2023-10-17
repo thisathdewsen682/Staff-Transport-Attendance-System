@@ -75,7 +75,7 @@ class Attendance {
 
     function markOut( $conn, $obj, $rno ) {
 
-        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $_POST[ 'route_no' ] . ' AND mark_out IS NULL ';
+        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $rno . ' AND mark_out IS NULL ';
 
         $checkedStatus = mysqli_query( $conn, $checkedSql );
 
@@ -131,6 +131,15 @@ class Attendance {
         $result = mysqli_query( $conn, $sql );
         return $result;
 
+    }
+
+    function deletById( $conn, $att, $id ) {
+
+        $sql = 'DELETE FROM attendance_tbl WHERE attendance_id = '.$id.'';
+
+        $result = mysqli_query( $conn, $sql );
+
+        return $result;
     }
 
 }
