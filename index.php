@@ -82,8 +82,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         </div>
     </div>
     <div class='container mt-5'>
-        <button type="button" class="btn btn-primary">
-            <a href="index.php" class="home">HOME</a>
+        <button type="button" class="btn  bg-warning">
+            <a href="index.php" class="home bg-warning">Home</a>
         </button>
         <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Add New Route
@@ -140,7 +140,7 @@ Report</a>
                             <a href='#' class='btn btn-danger mark-in' >Mark In</a>
                         </div>
                         <div class='col-md-6 text-center d-flex justify-content-center'>
-                            <a href='' class='btn btn-success mark-out'>Mark Out</a>
+                            <a href='' class='btn btn-success  mark-out'>Mark Out</a>
                         </div>
                     </div>
                 </div>";
@@ -151,7 +151,7 @@ Report</a>
     </div>
 
 
-
+    <?php  require_once('includes/footer.php')?>
 
     <script src='bootstrap/js/bootstrap.js'></script>
     <script src='js/time.js'></script>
@@ -290,7 +290,7 @@ Report</a>
     });
 
     document.getElementById('markOutAll').addEventListener('click', function() {
-        var confirmMarkOut = confirm('Are you sure you want to mark out all vehicles on this route?');
+        var confirmMarkOut = confirm('Are you sure you want to mark out all vehicles?');
 
         if (confirmMarkOut) {
 

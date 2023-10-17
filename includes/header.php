@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-        <h3 class='text-center title bg-success pt-2 pb-2 text-white'> STAFF TRANSPORT VEHICLE ATTENDANCE SYSTEM
+        <h3 class='text-center title bg-success pt-2 pb-2 text-white'> TRANSPORT VEHICLE ATTENDANCE SYSTEM
         </h3>
     </div>
 </div>

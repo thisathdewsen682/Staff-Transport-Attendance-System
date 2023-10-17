@@ -92,3 +92,11 @@ a{
    margin-left: 5px;
     background-color: greenyellow;
 }
+.space{
+  padding-top: 100px!important;
+}
+.footer{
+  background-color: black;
+  color: white;
+  text-align: center;
+}

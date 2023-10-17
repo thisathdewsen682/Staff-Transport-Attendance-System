@@ -191,20 +191,24 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <script>
     $(document).ready(function() {
         var table = $('#attendanceTable').DataTable({
-            initComplete: function() {
-                this.api().columns().every(function() {
-                    var column = this;
 
-                    if ($(column.header()).hasClass('searchable')) {
-                        var input = $('<input type="text" class="form-control">')
-                            .appendTo($(column.footer()).empty())
-                            .on('keyup', function() {
-                                column.search(this.value).draw();
-                            });
-                    }
-                });
+                initComplete: function() {
+                    this.api().columns().every(function() {
+                        var column = this;
+
+                        if ($(column.header()).hasClass('searchable')) {
+                            var input = $('<input type="text" class="form-control">')
+                                .appendTo($(column.footer()).empty())
+                                .on('keyup', function() {
+                                    column.search(this.value).draw();
+                                });
+                        }
+                    });
+                }
+
             }
-        });
+
+        );
 
         $('#startDate, #endDate').on('change', function() {
             table.draw();
