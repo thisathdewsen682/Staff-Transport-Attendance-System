@@ -82,7 +82,10 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         </div>
     </div>
     <div class='container mt-5'>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        <button type="button" class="btn btn-primary">
+            <a href="index.php" class="home">HOME</a>
+        </button>
+        <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Add New Route
         </button>
         <button type="button" class="btn btn-danger">

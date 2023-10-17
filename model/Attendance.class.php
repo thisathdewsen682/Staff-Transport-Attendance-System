@@ -32,13 +32,15 @@ class Attendance {
 
     function markAttendace( $conn, $obj ) {
 
-        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $_POST[ 'route_no' ] . " AND mark_out = '00:00:00'";
+        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $_POST[ 'route_no' ] . ' AND mark_out IS NULL';
 
         $checkedStatus = mysqli_query( $conn, $checkedSql );
         //echo mysqli_error( $conn );
         if ( mysqli_num_rows( $checkedStatus ) > 0 ) {
             // Record already exists with no mark out time, do nothing or handle accordingly
+
             echo 'Already marked In Please Mark Out Befor Mark in Again';
+
         } else {
             $sql = "INSERT INTO `attendance_tbl` (
                             `route_no` ,
@@ -47,7 +49,7 @@ class Attendance {
                             `staff_count` ,
                             `date` ,
                             `mark_in` ,
-                            `mark_out` ,
+                            
                             `status` ,
                             `created_at` ,
                             `updated_at`
@@ -59,7 +61,6 @@ class Attendance {
                             '". $obj->staff_count ."', 
                             '". $obj->date ."', 
                             '". $obj->mark_in ."', 
-                            '". $obj->mark_out ."', 
                             '". $obj->status ."', 
                             '". $obj->created_at ."',
                             '". $obj->updated_at ."'
@@ -74,7 +75,7 @@ class Attendance {
 
     function markOut( $conn, $obj, $rno ) {
 
-        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $_POST[ 'route_no' ] . " AND mark_out = '00:00:00'";
+        $checkedSql = 'SELECT * FROM attendance_tbl WHERE route_no = ' . $_POST[ 'route_no' ] . ' AND mark_out IS NULL ';
 
         $checkedStatus = mysqli_query( $conn, $checkedSql );
 
@@ -82,7 +83,7 @@ class Attendance {
         if ( mysqli_num_rows( $checkedStatus ) > 0 ) {
 
             $sql = "UPDATE attendance_tbl SET mark_out =  '". $obj->mark_out ."', status = '". $obj->status ."', 
-            updated_at = '". $obj->updated_at ."' WHERE route_no = '". $rno ."' AND mark_out = '00:00:00'";
+            updated_at = '". $obj->updated_at ."' WHERE route_no = ". $rno .' AND mark_out IS NULL';
 
             $result = mysqli_query( $conn, $sql );
 
@@ -115,9 +116,19 @@ class Attendance {
     function viewAllAttendance( $conn, $report ) {
 
         $sql = 'SELECT * FROM   attendance_tbl ORDER BY created_at DESC';
-        echo $sql;
+        //echo $sql;
         $result = mysqli_query( $conn, $sql );
 
+        return $result;
+
+    }
+
+    function updateAttendanceById( $conn, $att, $id ) {
+
+        $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
+        $att->mark_out."', updated_at = '".$att->updated_at ."'  WHERE attendance_id = '".$id."';";
+
+        $result = mysqli_query( $conn, $sql );
         return $result;
 
     }

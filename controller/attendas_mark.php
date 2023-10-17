@@ -14,36 +14,31 @@ $emp_name =  $_SESSION[ 'emp_name' ];
 
 if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     // Sanitize and validate input
-    if ( empty( $_POST[ 'employee_count' ] ) || empty( $_POST[ 'vehicle_no' ] ) ) {
-        // echo $_POST[ 'action' ];
-        echo 'data is empty';
-        // echo $_POST[ 'route_no' ];
+
+    //echo $_POST[ 'route_no' ];
+    //echo $_POST[ 'route_name' ];
+    //echo $_POST[ 'vehicle_no' ];
+    //echo $_POST[ 'employee_count' ];
+    //echo $_POST[ 'action' ];
+    $obj = new Attendance( $_POST[ 'route_no' ],
+    $_POST[ 'route_name' ],
+    $_POST[ 'vehicle_no' ],
+    $_POST[ 'employee_count' ],
+    today(),
+    markTime(),
+    'NULL',
+    'arrived',
+    currentTime(),
+    '' );
+
+    $result = $obj->markAttendace( $conn, $obj );
+
+    if ( $result ) {
+        echo $_POST[ 'route_name' ] . ' (' . $_POST[ 'route_no' ] . ') ' . $_POST[ 'vehicle_no' ] . ' Marked In Successfully';
+
     } else {
-        //echo $_POST[ 'route_no' ];
-        //echo $_POST[ 'route_name' ];
-        //echo $_POST[ 'vehicle_no' ];
-        //echo $_POST[ 'employee_count' ];
-        //echo $_POST[ 'action' ];
-        $obj = new Attendance( $_POST[ 'route_no' ],
-        $_POST[ 'route_name' ],
-        $_POST[ 'vehicle_no' ],
-        $_POST[ 'employee_count' ],
-        today(),
-        markTime(),
-        '',
-        'arrived',
-        currentTime(),
-        '' );
+        echo mysqli_error( $conn );
 
-        $result = $obj->markAttendace( $conn, $obj );
-
-        if ( $result ) {
-            echo $_POST[ 'route_name' ] . ' (' . $_POST[ 'route_no' ] . ') ' . $_POST[ 'vehicle_no' ] . ' Marked In Successfully';
-
-        } else {
-            echo mysqli_error( $conn );
-
-        }
     }
 
 }

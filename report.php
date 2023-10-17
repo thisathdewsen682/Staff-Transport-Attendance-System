@@ -46,8 +46,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             window.location.href = 'index.php'; // Redirect to login page if incorrect
         }
     }
-*/
-    promptForPassword()
+
+    promptForPassword()*/
     </script>
 
 
@@ -57,8 +57,11 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 <body>
     <?php require_once( 'includes/header.php' );?>
-    <div class='table-container '>
 
+    <div class='table-container '>
+        <button type="button" class="btn btn-primary btn-sm">
+            <a href="index.php" class="home">HOME</a>
+        </button>
         <table class='table table-info pt-3' id='attendanceTable'>
 
             <input type="date" id="startDate" name="startDate" class='m-2 p-1'>
@@ -115,7 +118,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
                         <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
-                        <td><a href = 'delete_process.php' class = 'btn btn-danger'>Delete</td></td> 
+                        <td><a href = 'controller/delete_process.php?=$id' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>       
                       
                         
@@ -149,7 +152,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
                         <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
-                        <td><a href = 'delete_process.php' class = 'btn btn-danger'>Delete</td></td> 
+                       <td><a href = 'controller/delete_process.php?=$id' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>
                       
                         

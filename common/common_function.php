@@ -33,3 +33,9 @@ function currentTime() {
     date_default_timezone_set( 'Asia/Colombo' );
     return date( 'Y-m-d H:i:s' );
 }
+
+function convertTo24HourFormat( $time12Hour ) {
+
+    return date( 'H:i', strtotime( $time12Hour ) );
+
+}

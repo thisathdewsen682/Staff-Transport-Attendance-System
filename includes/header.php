@@ -6,6 +6,7 @@
             <span id="minutes">00</span>
             <span>:</span>
             <span id="seconds">00</span>
+
         </div>
 
         <div class="col-md-8 col-sm-8 col-lg-8 bg-dark text-light d-flex justify-content-end p-1">
