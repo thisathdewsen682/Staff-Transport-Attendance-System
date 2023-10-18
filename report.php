@@ -53,8 +53,6 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 </head>
 
-
-
 <body>
     <?php require_once( 'includes/header.php' );?>
 
@@ -62,12 +60,15 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         <button type="button" class="btn btn-primary btn-sm">
             <a href="index.php" class="home">HOME</a>
         </button>
-        <table class='table table-info pt-3' id='attendanceTable'>
+        <table class='table table-info pt-3 display' id='attendanceTable'>
 
             <input type="date" id="startDate" name="startDate" class='m-2 p-1'>
 
 
             <input type="date" id="endDate" name="endDate" class='p-1'>
+
+
+            <input type="text" id="routeNoSearch" class="m-2 p-1" placeholder='Search By Route No'>
 
             <thead class='thead-dark'>
                 <tr>
@@ -140,7 +141,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                      $id = $row['attendance_id'];
 
                      
-                           echo "<tr class = 'table-success'>
+                           echo "<tr class = 'table-success text-center'>
                         <td>".$row[ 'route_no' ]."</td>
                         <td>".$row[ 'route' ]."</td>
                         <td>".$row[ 'vehicle_no' ]."</td>
@@ -170,6 +171,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         </table>
     </div>
 
+
     <div class="msg">
         <?php
         if(isset( $_SESSION[ 'successmsg' ])){
@@ -191,7 +193,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <script>
     $(document).ready(function() {
         var table = $('#attendanceTable').DataTable({
-
+                "order": [
+                    [8, "desc"]
+                ],
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var column = this;
@@ -204,9 +208,19 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                                 });
                         }
                     });
+
+                    $('#routeNoSearch').on('keyup', function() {
+                        var routeNo = this.value;
+                        table.column(0).search(routeNo === '' ? '' : '^' + routeNo + '$', true,
+                            false).draw();
+                    });
                 }
 
+
+
             }
+
+
 
         );
 

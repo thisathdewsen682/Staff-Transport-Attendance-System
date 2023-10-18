@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="col-md-12 d-flex align-items-center justify-content-center pt-1 pb-1">
-            <input type="text" value="<?php echo date('Y-d-m');?>" class="p-2 w-30 fs-5 text-center" readonly>
+            <input type="text" value="<?php echo today();?>" class="p-2 w-30 fs-5 text-center" readonly>
 
         </div>
     </div>

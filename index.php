@@ -81,7 +81,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             </div>
         </div>
     </div>
-    <div class='container mt-5'>
+    <div class='container-fluid mt-5'>
         <button type="button" class="btn  bg-warning">
             <a href="index.php" class="home bg-warning">Home</a>
         </button>
@@ -106,8 +106,11 @@ $result = mysqli_query( $conn, $sql );
 
     while ( $row = mysqli_fetch_assoc( $result ) ) {
         $route_no = $row['route_no'];
+
+      
         $markIn = '';
         $markOut = '';
+     
         $sql1 = "SELECT `mark_in`,`mark_out` FROM `attendance_tbl` WHERE `route_no` = $route_no AND `created_at` = (SELECT MAX(`created_at`) FROM `attendance_tbl` WHERE `route_no` = $route_no) LIMIT 1";
 
         $result1 = mysqli_query( $conn, $sql1 );
@@ -121,20 +124,35 @@ $result = mysqli_query( $conn, $sql );
 
         }
         echo "<div class='col-sm-4 col-md-4 col-lg-4 bus-no'>
-                    <h6 class='in'>Mark In:" . $markIn . "</h6>
-                    <h6 class='out'>Mark Out:" . $markOut . "</h6>
+                    <h6 class='in c'>Mark In:" . $markIn . "</h6>
+                    <h6 class='out c'>Mark Out:" . $markOut . "</h6>
                     <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
 Report</a>
 </h6>
 
                     
-                    <h4 class='text-center'>Route " . $row[ 'route_no' ] . "</h4>
-                    <h4 class='text-center'>" . $row[ 'route' ] . "</h4>
-                    <input type='text' name='vhno' placeholder='Vehicle No' class='text-center w-100 atform''>
-                    <input type='text' name='employee_count' placeholder='Employee Count' class='text-center mt-2 w-100 atform'>
+                    <h5 class='text-center atcn'>Route " . $row[ 'route_no' ] . "</h5>
+                    <h5 class='text-center atcn'>" . $row[ 'route' ] . "</h5>
+                    
+                    <div class='inline-inputs'>
+                        <input type='text' name='vhno' placeholder='Vehicle No' class='text-center  atform'>
+                        <input type='text' name='employee_count' placeholder='Employee Count' class='text-center atform' >
+                    </div>
 
-                    <input type='hidden' name='rno' placeholder='Vehicle No' class='text-center w-100 rno' value='" . $row[ 'route_no' ] . "'>
-                    <input type='hidden' name='rname' placeholder='Employee Count' class='text-center mt-2 w-100' value='" . $row[ 'route' ] . "'>
+                    <div class='d-flex justify-content-center align-items-center mt-2'>
+                        <div class='checkbox-group'>
+                            <label>
+                                <input type='checkbox' name='driver' value = 'driver'> Driver
+                            </label>
+                            <label>
+                                <input type='checkbox' name='helper' value = 'helper'> Helper
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <input type='hidden' name='rno' placeholder='Vehicle No' class='text-center rno' value='" . $row[ 'route_no' ] . "'>
+                    <input type='hidden' name='rname' placeholder='Employee Count' class='text-center mt-2 ' value='" . $row[ 'route' ] . "'>
                     <div class='row mt-4'>
                         <div class='col-md-6 text-center d-flex justify-content-center'>
                             <a href='#' class='btn btn-danger mark-in' >Mark In</a>
@@ -322,6 +340,71 @@ Report</a>
 
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        var busElements = document.querySelectorAll('.bus-no');
+
+        busElements.forEach(function(bus) {
+            var markOutElement = bus.querySelector('.out');
+            var markOutText = markOutElement.innerText;
+
+            // Remove "Mark Out:" using substr
+            markOutText = markOutText.substr(9);
+
+            if (markOutText.trim() !== '') {
+                markOutElement.style.color = 'blue';
+            } else {
+                markOutElement.style.color = 'red';
+            }
+
+            // Update the element with the modified text
+            markOutElement.innerText = 'Mark Out:' + markOutText;
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var busElements = document.querySelectorAll('.bus-no');
+
+        busElements.forEach(function(bus) {
+            var markOutElement = bus.querySelector('.in');
+            var markOutText = markOutElement.innerText;
+
+            // Remove "Mark Out:" using substr
+            markOutText = markOutText.substr(9);
+
+            if (markOutText.trim() !== '') {
+                markOutElement.style.color = 'green';
+            } else {
+                markOutElement.style.color = 'red';
+            }
+
+            // Update the element with the modified text
+            markOutElement.innerText = 'Mark In:' + markOutText;
+        });
+
+
+    });
+    /*
+        document.addEventListener('DOMContentLoaded', function() {
+            var now = new Date();
+            var hours = now.getHours();
+
+            if (hours >= 3 AND hours <= 6) {
+                // It's after or exactly 3 AM, clear the content
+
+                var busElements = document.querySelectorAll('.bus-no');
+
+                busElements.forEach(function(bus) {
+                    var markOutElement = bus.querySelector('.out');
+                    markOutElement.innerText = 'Mark Out:';
+                    markOutElement.style.color = 'red';
+
+                    var markInElement = bus.querySelector('.in');
+                    markInElement.innerText = 'Mark In:';
+                    markInElement.style.color = 'red';
+                });
+
+            }
+        });*/
     </script>
 
 
