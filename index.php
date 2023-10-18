@@ -96,10 +96,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         <div class='row row  justify-content-center'>
 
             <?php
-// Start PHP session if not already started
-
-// Your database connection code here
-// $conn = mysqli_connect( ... );
+            // Start PHP session if not already started
+            // Your database connection code here
+            // $conn = mysqli_connect( ... );
 
 $sql = 'SELECT * FROM vehicle_detail';
 $result = mysqli_query( $conn, $sql );
@@ -142,10 +141,10 @@ Report</a>
                     <div class='d-flex justify-content-center align-items-center mt-2'>
                         <div class='checkbox-group'>
                             <label>
-                                <input type='checkbox' name='driver' value = 'driver'> Driver
+                                <input type='checkbox' name='driver' value = '1'> Driver
                             </label>
                             <label>
-                                <input type='checkbox' name='helper' value = 'helper'> Helper
+                                <input type='checkbox' name='helper' value = '1'> Helper
                             </label>
                         </div>
                     </div>
@@ -168,7 +167,6 @@ Report</a>
         </div>
     </div>
 
-
     <?php  require_once('includes/footer.php')?>
 
     <script src='bootstrap/js/bootstrap.js'></script>
@@ -189,6 +187,14 @@ Report</a>
                 var employeeCount = this.closest('.bus-no').querySelector(
                     'input[name="employee_count"]').value;
 
+                var driverCheckbox = this.closest('.bus-no').querySelector(
+                    'input[name="driver"]');
+                var driver = driverCheckbox.checked ? driverCheckbox.value : '0';
+
+                var helperCheckbox = this.closest('.bus-no').querySelector(
+                    'input[name="helper"]');
+                var helper = helperCheckbox.checked ? helperCheckbox.value : '0';
+
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'controller/attendas_mark.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -196,12 +202,10 @@ Report</a>
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            // Handle success (if any)
                             alert(xhr.responseText);
                             window.location.reload();
-                            button.setAttribute('disabled', 'true');
+                            //                     button.setAttribute('disabled', 'true');
                         } else {
-                            // Handle error (if any)
                             console.error(xhr.responseText);
                         }
                     }
@@ -211,6 +215,8 @@ Report</a>
                     '&route_name=' + encodeURIComponent(routeName) +
                     '&vehicle_no=' + encodeURIComponent(vehicleNo) +
                     '&employee_count=' + encodeURIComponent(employeeCount) +
+                    '&driver=' + encodeURIComponent(driver) +
+                    '&helper=' + encodeURIComponent(helper) +
                     '&action=' + 'in';
 
                 xhr.send(data);
@@ -227,22 +233,22 @@ Report</a>
                 event.preventDefault();
 
                 var routeNo = this.closest('.bus-no').querySelector('input[name="rno"]').value;
-                // Send AJAX request to update mark_out
+
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'controller/attendas_mark.php', true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status >= 200 && xhr.status < 400) {
-                        // Handle the response if needed
+
                         alert(xhr.responseText);
                         window.location.reload();
                     } else {
-                        // Handle errors if any
+
                         console.log(xhr.responseText);
                     }
                 };
                 xhr.onerror = function() {
-                    // Handle errors if any
+
                 };
                 var data = 'route_no=' + encodeURIComponent(routeNo) +
                     '&action=' + 'out';
@@ -297,10 +303,10 @@ Report</a>
     });
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Get the button with class 'btn-close'
+
         var closeButton = document.querySelector('.btn-close');
 
-        // Add an event listener to the button
+
         closeButton.addEventListener('click', function() {
             document.getElementById('errorMsg').style.display = 'none';
             document.getElementById('successMsg').style.display = 'none';
@@ -315,7 +321,7 @@ Report</a>
 
             var rnoInputs = document.querySelectorAll('.rno');
 
-            // Loop through each element
+
             rnoInputs.forEach(function(input) {
                 var routeNo = input.value;
 
@@ -340,6 +346,7 @@ Report</a>
 
         }
     });
+
     document.addEventListener('DOMContentLoaded', function() {
         var busElements = document.querySelectorAll('.bus-no');
 
@@ -347,7 +354,7 @@ Report</a>
             var markOutElement = bus.querySelector('.out');
             var markOutText = markOutElement.innerText;
 
-            // Remove "Mark Out:" using substr
+
             markOutText = markOutText.substr(9);
 
             if (markOutText.trim() !== '') {
@@ -369,7 +376,7 @@ Report</a>
             var markOutText = markOutElement.innerText;
 
             // Remove "Mark Out:" using substr
-            markOutText = markOutText.substr(9);
+            markOutText = markOutText.substr(8);
 
             if (markOutText.trim() !== '') {
                 markOutElement.style.color = 'green';
@@ -383,6 +390,7 @@ Report</a>
 
 
     });
+
     /*
         document.addEventListener('DOMContentLoaded', function() {
             var now = new Date();

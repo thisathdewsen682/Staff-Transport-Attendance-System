@@ -14,7 +14,7 @@ $emp_name =  $_SESSION[ 'emp_name' ];
 
 if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     // Sanitize and validate input
-
+    //echo $_POST[ 'checked' ];
     //echo $_POST[ 'route_no' ];
     //echo $_POST[ 'route_name' ];
     //echo $_POST[ 'vehicle_no' ];
@@ -23,10 +23,12 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     $obj = new Attendance( $_POST[ 'route_no' ],
     $_POST[ 'route_name' ],
     $_POST[ 'vehicle_no' ],
+    $_POST[ 'driver' ],
+    $_POST[ 'helper' ],
     $_POST[ 'employee_count' ],
     today(),
     markTime(),
-    'NULL',
+    '',
     'arrived',
     currentTime(),
     '' );
@@ -49,6 +51,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     // echo $rno;
 
     $obj = new Attendance( $rno,
+    '',
+    '',
     '',
     '',
     '',

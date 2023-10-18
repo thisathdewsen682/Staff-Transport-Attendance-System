@@ -5,6 +5,8 @@ class Attendance {
     var $route_no;
     var $route;
     var $vehicle_no;
+    var $driver;
+    var $helper;
     var $staff_count;
     var $date;
     var $mark_in;
@@ -14,13 +16,15 @@ class Attendance {
     var $updated_at;
 
     function  Attendance(
-        $route_no, $route, $vehicle_no, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at
+        $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at
 
     ) {
         //$this->attendance_id = $attendance_id;
         $this->route_no = $route_no;
         $this->route = $route;
         $this->vehicle_no = $vehicle_no;
+        $this->driver = $driver;
+        $this->helper = $helper;
         $this->staff_count = $staff_count;
         $this->date = $date;
         $this->mark_in = $mark_in;
@@ -46,10 +50,11 @@ class Attendance {
                             `route_no` ,
                             `route` ,
                             `vehicle_no` ,
+                            `driver` ,
+                            `helper` ,
                             `staff_count` ,
                             `date` ,
                             `mark_in` ,
-                            
                             `status` ,
                             `created_at` ,
                             `updated_at`
@@ -58,6 +63,8 @@ class Attendance {
                             '". $obj->route_no ."', 
                             '". $obj->route ."', 
                             '". $obj->vehicle_no ."', 
+                            '". $obj->driver ."', 
+                            '". $obj->helper ."', 
                             '". $obj->staff_count ."', 
                             '". $obj->date ."', 
                             '". $obj->mark_in ."', 
