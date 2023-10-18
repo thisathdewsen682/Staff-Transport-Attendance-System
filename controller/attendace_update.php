@@ -20,7 +20,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
     $inTime = $_POST[ 'startTime' ];
     $outTime = $_POST[ 'endTime' ];
 
-    $att = new Attendance( '', '', $vehicleNo, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime() );
+    $att = new Attendance( '', '', $vehicleNo, '', '', $staffCount, '', $inTime, $outTime, 'changed', '', currentTime() );
 
     $result = $att->updateAttendanceById( $conn, $att, $id );
 

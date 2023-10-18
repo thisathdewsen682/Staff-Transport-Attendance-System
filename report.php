@@ -60,7 +60,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         <button type="button" class="btn btn-primary btn-sm">
             <a href="index.php" class="home">HOME</a>
         </button>
-        <table class='table table-info pt-3 display' id='attendanceTable'>
+        <table class=' table table-dark hover pt-3 display cell-border' id='attendanceTable'>
 
             <input type="date" id="startDate" name="startDate" class='m-2 p-1'>
 
@@ -70,12 +70,14 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
             <input type="text" id="routeNoSearch" class="m-2 p-1" placeholder='Search By Route No'>
 
-            <thead class='thead-dark'>
+            <thead class=''>
                 <tr>
 
                     <th class='text-center' scope='col'>Route No</th>
                     <th class='text-center' scope='col'>Route Name</th>
                     <th class='text-center' scope='col'>Vehicle No</th>
+                    <th class='text-center' scope='col'>Driver</th>
+                    <th class='text-center' scope='col'>Helper</th>
                     <th class='text-center' scope='col'>Staff Count</th>
                     <th class='text-center' scope='col'>Date</th>
                     <th class='text-center' scope='col'>Mark In Time</th>
@@ -107,10 +109,12 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
                     while( $row = mysqli_fetch_assoc( $result ) ) {
                     $id = $row['attendance_id'];
-                           echo "<tr class = 'table-success text-center'>
+                           echo "<tr class = 'table-info text-center'>
                         <td>".$row[ 'route_no' ]."</td>
                         <td>".$row[ 'route' ]."</td>
                         <td>".$row[ 'vehicle_no' ]."</td>
+                        <td>".$row[ 'driver' ]."</td>
+                        <td>".$row[ 'helper' ]."</td>
                         <td>".$row[ 'staff_count' ]."</td>
                         <td>".$row[ 'date' ]."</td>
                         <td>".$row[ 'mark_in' ]."</td>
@@ -118,7 +122,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         <td>".$row[ 'status' ]."</td>
                         <td>".$row[ 'created_at' ]."</td> 
                         <td>".$row[ 'updated_at' ]."</td> 
-                        <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
+                        <td><a href = 'edit_view.php?rid=$id' class = 'edit'>Edit</td> 
                         <td><a href = 'controller/delete_process.php?delid=$id&rno=$report_id' class = 'btn btn-danger'>Delete</td></td> 
                         </tr>       
                       
@@ -141,10 +145,12 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                      $id = $row['attendance_id'];
 
                      
-                           echo "<tr class = 'table-success text-center'>
+                           echo "<tr class = 'table-info text-center'>
                         <td>".$row[ 'route_no' ]."</td>
                         <td>".$row[ 'route' ]."</td>
                         <td>".$row[ 'vehicle_no' ]."</td>
+                          <td>".$row[ 'driver' ]."</td>
+                        <td>".$row[ 'helper' ]."</td>
                         <td>".$row[ 'staff_count' ]."</td>
                         <td>".$row[ 'date' ]."</td>
                         <td>".$row[ 'mark_in' ]."</td>
@@ -168,6 +174,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 
             </tbody>
+            <button class='btn btn-success'>Export To Excell</button>
         </table>
     </div>
 
@@ -194,7 +201,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     $(document).ready(function() {
         var table = $('#attendanceTable').DataTable({
                 "order": [
-                    [8, "desc"]
+                    [10, "desc"],
+
                 ],
                 initComplete: function() {
                     this.api().columns().every(function() {

@@ -22,6 +22,8 @@ if ( isset( $_GET[ 'rno' ] ) ) {
     '',
     '',
     '',
+    '',
+    '',
     markTime(),
     'arrived and departured',
     '',
