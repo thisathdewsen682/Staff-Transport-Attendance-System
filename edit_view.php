@@ -72,6 +72,17 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
     while ( $row = mysqli_fetch_assoc( $result ) ) {
 
+        $checked1 = '';
+        $checked2 = '';
+
+        if($row['driver'] == '1'){
+            $checked1 = 'checked';
+        }
+
+        if($row['helper'] == '1'){
+             $checked2 = 'checked';
+        }
+
         echo "
         <div class='container mt-3'>
             <form  method = 'POST' id = 'attendanceUpdate'>
@@ -91,10 +102,22 @@ if ( isset( $_GET[ 'rid' ] ) ) {
                         <input type='time' name='startTime' id='startTime' class='form-control form-control-lg text-center'
                             value='" . $row[ 'mark_in' ] . "'>
                     </div>
+                      
                     <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center mt-2'>
                         <label for='endTime' class='form-label'>End Time</label>
                         <input type='time' name='endTime' id='endTime' class='form-control form-control-lg text-center'
                             value='" . $row[ 'mark_out' ] . "'>
+                    </div>
+
+                    <div class='d-flex justify-content-center align-items-center mt-2'>
+                        <div class='checkbox-group'>
+                            <label>
+                                <input type='checkbox' name='driver' value = '1' $checked1> Driver
+                            </label>
+                            <label>
+                                <input type='checkbox' name='helper' value = '1' $checked2> Helper
+                            </label>
+                        </div>
                     </div>
                     <input type='hidden' name='recordID' value='" . $row[ 'attendance_id' ] . "'>
                     <div class='col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center mt-3'>
@@ -104,6 +127,8 @@ if ( isset( $_GET[ 'rid' ] ) ) {
                 </div>
             </form>
         </div>";
+
+
     }
 
 }

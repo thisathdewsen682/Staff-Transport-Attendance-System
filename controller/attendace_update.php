@@ -20,7 +20,19 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
     $inTime = $_POST[ 'startTime' ];
     $outTime = $_POST[ 'endTime' ];
 
-    $att = new Attendance( '', '', $vehicleNo, '', '', $staffCount, '', $inTime, $outTime, 'changed', '', currentTime() );
+    $driver = '0';
+    $helper = '0';
+    if ( isset( $_POST[ 'driver' ] ) ) {
+        $driver  = $_POST[ 'driver' ];
+        echo $driver;
+    }
+
+    if ( isset( $_POST[ 'helper' ] ) ) {
+        $helper  = $_POST[ 'helper' ];
+        echo $helper;
+    }
+
+    $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime() );
 
     $result = $att->updateAttendanceById( $conn, $att, $id );
 
@@ -29,4 +41,5 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
     } else {
         echo 'Data Update Failed';
     }
+
 }

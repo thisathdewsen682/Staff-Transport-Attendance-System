@@ -30,6 +30,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <script src="DataTables/jQuery-3.7.0/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="DataTables/css/jquery.dataTables.css">
 
+
     <script>
     // Function to prompt for password and set session variable if correct
     /* function promptForPassword() {
@@ -174,7 +175,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 
             </tbody>
-            <button class='btn btn-success'>Export To Excell</button>
+            <button class='btn btn-success' id='exportBtn'> Export Data To Excel File</button>
+
+
         </table>
     </div>
 
@@ -250,7 +253,36 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             }
         );
     });
+
+
+    //export to excell
+
+    document.getElementById('exportBtn').addEventListener('click', function() {
+        var table = document.getElementById('attendanceTable');
+        var ws = XLSX.utils.table_to_sheet(table);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        var wbout = XLSX.write(wb, {
+            bookType: 'xlsx',
+            type: 'binary'
+        });
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        var blob = new Blob([s2ab(wbout)], {
+            type: "application/octet-stream"
+        });
+        var filename = 'exported_data.xlsx';
+        saveAs(blob, filename);
+    });
     </script>
+    <script src="FileSaver.js-master/FileSaver.min.js"></script>
+
+    <script src="sheetjs-github/dist/xlsx.full.min.js"></script>
 </body>
 
 </html>

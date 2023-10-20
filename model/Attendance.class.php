@@ -132,7 +132,7 @@ class Attendance {
 
     function updateAttendanceById( $conn, $att, $id ) {
 
-        $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
+        $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', driver = '".$att->driver."',helper = '".$att->helper."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
         $att->mark_out."', updated_at = '".$att->updated_at ."'  WHERE attendance_id = '".$id."';";
 
         $result = mysqli_query( $conn, $sql );

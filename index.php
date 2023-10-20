@@ -126,7 +126,8 @@ $result = mysqli_query( $conn, $sql );
                     <h6 class='in c'>Mark In:" . $markIn . "</h6>
                     <h6 class='out c'>Mark Out:" . $markOut . "</h6>
                     <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
-Report</a>
+Report</a><!--<a href='qrcode.php?rno=".$route_no."'>
+Print QR</a>-->
 </h6>
 
                     
@@ -141,7 +142,7 @@ Report</a>
                     <div class='d-flex justify-content-center align-items-center mt-2'>
                         <div class='checkbox-group'>
                             <label>
-                                <input type='checkbox' name='driver' value = '1'> Driver
+                                <input type='checkbox' name='driver' value = '1' checked> Driver
                             </label>
                             <label>
                                 <input type='checkbox' name='helper' value = '1'> Helper

@@ -1,6 +1,5 @@
- <div class="space">
+<div class="space"></div>
 
- </div>
- <footer class="footer">
-     <p>KOHOKU LANKA - IT Dep &copy;<?php echo date(' Y')?> </p>
- </footer>
+<footer class="footer">
+    <p class="copyright">KOHOKU LANKA - IT Dep &copy;<?php echo date('Y')?></p>
+</footer>
