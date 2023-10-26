@@ -17,7 +17,6 @@ class Attendance {
 
     function  Attendance(
         $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at
-
     ) {
         //$this->attendance_id = $attendance_id;
         $this->route_no = $route_no;
@@ -41,6 +40,7 @@ class Attendance {
         $checkedStatus = mysqli_query( $conn, $checkedSql );
         //echo mysqli_error( $conn );
         if ( mysqli_num_rows( $checkedStatus ) > 0 ) {
+
             // Record already exists with no mark out time, do nothing or handle accordingly
 
             echo 'Already marked In Please Mark Out Befor Mark in Again';
@@ -77,7 +77,6 @@ class Attendance {
 
             return $result;
         }
-
     }
 
     function markOut( $conn, $obj, $rno ) {
@@ -91,10 +90,9 @@ class Attendance {
 
             $sql = "UPDATE attendance_tbl SET mark_out =  '". $obj->mark_out ."', status = '". $obj->status ."', 
             updated_at = '". $obj->updated_at ."' WHERE route_no = ". $rno .' AND mark_out IS NULL';
-
             $result = mysqli_query( $conn, $sql );
-
             return $result;
+
         } else {
             echo 'Not Marked In';
         }
@@ -103,7 +101,6 @@ class Attendance {
     function viewAttendanceByID( $conn, $routeNo, $report ) {
 
         $sql = 'SELECT * FROM   attendance_tbl WHERE route_no = '. $routeNo .'  ORDER BY created_at DESC';
-
         $result = mysqli_query( $conn, $sql );
         //var_dump( $result );
         return $result;
@@ -113,7 +110,6 @@ class Attendance {
     function viewAttendanceByID1( $conn, $routeNo, $report ) {
 
         $sql = 'SELECT * FROM   attendance_tbl WHERE attendance_id = '. $routeNo .'  ORDER BY created_at DESC';
-
         $result = mysqli_query( $conn, $sql );
         //var_dump( $result );
         return $result;
@@ -125,7 +121,6 @@ class Attendance {
         $sql = 'SELECT * FROM   attendance_tbl ORDER BY created_at DESC';
         //echo $sql;
         $result = mysqli_query( $conn, $sql );
-
         return $result;
 
     }
@@ -134,18 +129,15 @@ class Attendance {
 
         $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', driver = '".$att->driver."',helper = '".$att->helper."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
         $att->mark_out."', updated_at = '".$att->updated_at ."'  WHERE attendance_id = '".$id."';";
-
         $result = mysqli_query( $conn, $sql );
         return $result;
 
     }
 
-    function deletById( $conn, $att, $id ) {
+    static function deletById( $conn, $id ) {
 
         $sql = 'DELETE FROM attendance_tbl WHERE attendance_id = '.$id.'';
-
         $result = mysqli_query( $conn, $sql );
-
         return $result;
     }
 

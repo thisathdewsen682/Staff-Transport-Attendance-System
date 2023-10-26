@@ -105,8 +105,8 @@ $result = mysqli_query( $conn, $sql );
 
     while ( $row = mysqli_fetch_assoc( $result ) ) {
         $route_no = $row['route_no'];
-
-      
+        
+        
         $markIn = '';
         $markOut = '';
      
@@ -126,6 +126,8 @@ $result = mysqli_query( $conn, $sql );
                     <h6 class='in c'>Mark In:" . $markIn . "</h6>
                     <h6 class='out c'>Mark Out:" . $markOut . "</h6>
                     <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
+                    <label><input type='checkbox' class = 'checkbox-markout' name='selected_items[]' value=".$route_no.">&nbsp;Dont Mark Out</label><br>
+
 Report</a><!--<a href='qrcode.php?rno=".$route_no."'>
 Print QR</a>-->
 </h6>
@@ -135,7 +137,7 @@ Print QR</a>-->
                     <h5 class='text-center atcn'>" . $row[ 'route' ] . "</h5>
                     
                     <div class='inline-inputs'>
-                        <input type='text' name='vhno' placeholder='Vehicle No' class='text-center  atform'>
+                        <input type='text' name='vhno' placeholder='Vehicle No' class='text-center  atform' value = '".$row['vehicle_no']."'>
                         <input type='text' name='employee_count' placeholder='Employee Count' class='text-center atform' >
                     </div>
 
@@ -173,6 +175,7 @@ Print QR</a>-->
     <script src='bootstrap/js/bootstrap.js'></script>
     <script src='js/time.js'></script>
     <script>
+    //MARK IN AJAX
     document.addEventListener('DOMContentLoaded', function() {
         var markInButtons = document.querySelectorAll('.mark-in');
 
@@ -185,6 +188,7 @@ Print QR</a>-->
                     .value;
                 var vehicleNo = this.closest('.bus-no').querySelector('input[name="vhno"]')
                     .value;
+
                 var employeeCount = this.closest('.bus-no').querySelector(
                     'input[name="employee_count"]').value;
 
@@ -205,7 +209,7 @@ Print QR</a>-->
                         if (xhr.status === 200) {
                             alert(xhr.responseText);
                             window.location.reload();
-                            //                     button.setAttribute('disabled', 'true');
+                            //button.setAttribute('disabled', 'true');
                         } else {
                             console.error(xhr.responseText);
                         }
@@ -225,6 +229,8 @@ Print QR</a>-->
         });
     });
 
+
+    //MARK OUT AJAX
 
     document.addEventListener('DOMContentLoaded', function() {
         var markOutButtons = document.querySelectorAll('.mark-out');
@@ -251,17 +257,20 @@ Print QR</a>-->
                 xhr.onerror = function() {
 
                 };
+
+
                 var data = 'route_no=' + encodeURIComponent(routeNo) +
                     '&action=' + 'out';
 
                 xhr.send(data);
+
                 //xhr.send('route_no=' + routeNo + '&action=' + 'out');
             });
         });
     });
 
 
-    //add new route submit
+    //ADD NEW ROUTE AJAX
 
     document.getElementById('route').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -314,39 +323,71 @@ Print QR</a>-->
         });
     });
 
+    //MARKOUT ALL AJAX
+
     document.getElementById('markOutAll').addEventListener('click', function() {
-        var confirmMarkOut = confirm('Are you sure you want to mark out all vehicles?');
+            var confirmMarkOut = confirm('Are you sure you want to mark out all vehicles?');
+            error = '0';
+            if (confirmMarkOut) {
 
-        if (confirmMarkOut) {
+                var unselectedRoutes = [];
+                var checkboxes = document.querySelectorAll('.checkbox-markout');
 
-
-            var rnoInputs = document.querySelectorAll('.rno');
-
-
-            rnoInputs.forEach(function(input) {
-                var routeNo = input.value;
-
-                var xhr = new XMLHttpRequest();
-
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            //alert(xhr.responseText);
-                            location.reload();
-                        } else {
-                            console.error('Request failed:', xhr.status, xhr.statusText);
-                        }
+                checkboxes.forEach(function(checkbox) {
+                    if (!checkbox.checked) {
+                        unselectedRoutes.push(checkbox.value);
+                        console.log(unselectedRoutes)
                     }
-                };
-
-                xhr.open('GET', 'markout_all.php?rno=' + routeNo, true);
-                xhr.send();
-            });
+                });
 
 
+                //var rnoInputs = document.querySelectorAll('.rno');
 
+
+                unselectedRoutes.forEach(function(routeNo) {
+                        //var routeNo = input.value;
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', 'markout_all.php?rno=' + routeNo, true);
+                        xhr.onload = function() {
+                            if (xhr.status >= 200 && xhr.status < 400) {
+                                if (xhr.status === 200 && xhr.status < 400) {
+                                    console.log(xhr.responseText);
+                                    console.log(routeNo);
+
+                                    requestSuccess = true;
+
+                                } else {
+                                    console.error('Request failed:', xhr.status, xhr.statusText);
+                                    error = '1';
+                                }
+
+                                if (requestSuccess) {
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 1000); // Reload after 2 seconds if request was successful
+                                    // location.reload();
+                                }
+
+                            } else {
+                                console.log('1');
+                                var error = '1'
+                            }
+                        };
+
+                        //xhr.open('GET', 'markout_all.php?rno=' + routeNo, true);
+                        xhr.send();
+
+                    }
+
+                );
+
+            }
         }
-    });
+
+    );
+
+    //CHANGE STYLE AFTER MARKOUT AND MARK IN AJAX
 
     document.addEventListener('DOMContentLoaded', function() {
         var busElements = document.querySelectorAll('.bus-no');
@@ -354,43 +395,51 @@ Print QR</a>-->
         busElements.forEach(function(bus) {
             var markOutElement = bus.querySelector('.out');
             var markOutText = markOutElement.innerText;
-
+            var busCard = bus;
 
             markOutText = markOutText.substr(9);
 
             if (markOutText.trim() !== '') {
                 markOutElement.style.color = 'blue';
+                busCard.classList.add('default'); // cheange card color aftert markout
             } else {
                 markOutElement.style.color = 'red';
+                //busCard.classList.add('marked-in'); // This line is commented out
             }
 
             // Update the element with the modified text
             markOutElement.innerText = 'Mark Out:' + markOutText;
+
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var busElements = document.querySelectorAll('.bus-no');
+        var busElementsIn = document.querySelectorAll('.bus-no');
 
-        busElements.forEach(function(bus) {
+        busElementsIn.forEach(function(bus) {
+            var busCard = bus;
             var markOutElement = bus.querySelector('.in');
             var markOutText = markOutElement.innerText;
+            //var checkedBox = bus.querySelector('.checkbox-markout');
 
             // Remove "Mark Out:" using substr
             markOutText = markOutText.substr(8);
 
             if (markOutText.trim() !== '') {
                 markOutElement.style.color = 'green';
+                busCard.classList.add('marked-in'); //change color after mark in
             } else {
+                //checkedBox.checked = true;
                 markOutElement.style.color = 'red';
+                busCard.classList.remove(
+                    'marked-in'); // remove background color class in default status
             }
 
             // Update the element with the modified text
             markOutElement.innerText = 'Mark In:' + markOutText;
         });
-
-
     });
+
+
+
 
     /*
         document.addEventListener('DOMContentLoaded', function() {

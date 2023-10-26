@@ -26,7 +26,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     <link rel='stylesheet' href='css/style1.css'>
     <script src='bootstrap/js/bootstrap.js'></script>
     <script src='js/time.js'></script>
-    <script src="DataTables/js/dataTables.jquery.min.js"></script>
+
     <script src="DataTables/jQuery-3.7.0/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="DataTables/css/jquery.dataTables.css">
 
@@ -56,7 +56,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 <body>
     <?php require_once( 'includes/header.php' );?>
-
+    <input type="hidden" name="rno" id='rno' value='<?php echo $_GET[ 'rno' ]; ?>'>
     <div class='table-container '>
         <button type="button" class="btn btn-primary btn-sm">
             <a href="index.php" class="home">HOME</a>
@@ -101,86 +101,86 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             
             
             if ( isset( $_GET['rno'] ) && $_GET['rno'] == 'all') {
-     $report_id = $_GET[ 'rno' ];
+            $report_id = $_GET[ 'rno' ];
+     
             $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '' );
 
             $result = $report->viewAllAttendance( $conn,$report );
 
            
 
-                    while( $row = mysqli_fetch_assoc( $result ) ) {
-                    $id = $row['attendance_id'];
-                           echo "<tr class = 'table-info text-center'>
-                        <td>".$row[ 'route_no' ]."</td>
-                        <td>".$row[ 'route' ]."</td>
-                        <td>".$row[ 'vehicle_no' ]."</td>
-                        <td>".$row[ 'driver' ]."</td>
-                        <td>".$row[ 'helper' ]."</td>
-                        <td>".$row[ 'staff_count' ]."</td>
-                        <td>".$row[ 'date' ]."</td>
-                        <td>".$row[ 'mark_in' ]."</td>
-                        <td>".$row[ 'mark_out' ]."</td>
-                        <td>".$row[ 'status' ]."</td>
-                        <td>".$row[ 'created_at' ]."</td> 
-                        <td>".$row[ 'updated_at' ]."</td> 
-                        <td><a href = 'edit_view.php?rid=$id' class = 'edit'>Edit</td> 
-                        <td><a href = 'controller/delete_process.php?delid=$id&rno=$report_id' class = 'btn btn-danger'>Delete</td></td> 
-                        </tr>       
-                      
-                        
-                        ";
+                        while( $row = mysqli_fetch_assoc( $result ) ) {
+                        $id = $row['attendance_id'];
+                            echo "<tr class = 'table-info text-center'>
+                            <td>".$row[ 'route_no' ]."</td>
+                            <td>".$row[ 'route' ]."</td>
+                            <td>".$row[ 'vehicle_no' ]."</td>
+                            <td>".$row[ 'driver' ]."</td>
+                            <td>".$row[ 'helper' ]."</td>
+                            <td>".$row[ 'staff_count' ]."</td>
+                            <td>".$row[ 'date' ]."</td>
+                            <td>".$row[ 'mark_in' ]."</td>
+                            <td>".$row[ 'mark_out' ]."</td>
+                            <td>".$row[ 'status' ]."</td>
+                            <td>".$row[ 'created_at' ]."</td> 
+                            <td>".$row[ 'updated_at' ]."</td> 
+                            <td><a href = 'edit_view.php?rid=$id' class = 'edit'>Edit</td> 
+                            
+                    <td><button onclick='promptForPassword($id, $report_id)' class='btn btn-danger'>Delete</button></td>
+
+                   
+                    </tr>
+                    ";
 
                     }
 
 
-            }else if ( isset( $_GET[ 'rno' ] ) ) {
-           
-            $report_id = $_GET[ 'rno' ];
-            $report = new Attendance( '', '', '', '', '', '','','', '', '', '', '' );
+                }else if ( isset( $_GET[ 'rno' ] ) ) {
 
-            $result = $report->viewAttendanceByID( $conn, $report_id, $report );
+                $report_id = $_GET[ 'rno' ];
+                $report = new Attendance( '', '', '', '', '', '','','', '', '', '', '' );
 
-           
-
-                    while( $row = mysqli_fetch_assoc( $result ) ) {
-                     $id = $row['attendance_id'];
-
-                     
-                           echo "<tr class = 'table-info text-center'>
-                        <td>".$row[ 'route_no' ]."</td>
-                        <td>".$row[ 'route' ]."</td>
-                        <td>".$row[ 'vehicle_no' ]."</td>
-                          <td>".$row[ 'driver' ]."</td>
-                        <td>".$row[ 'helper' ]."</td>
-                        <td>".$row[ 'staff_count' ]."</td>
-                        <td>".$row[ 'date' ]."</td>
-                        <td>".$row[ 'mark_in' ]."</td>
-                        <td>".$row[ 'mark_out' ]."</td>
-                        <td>".$row[ 'status' ]."</td>
-                        <td>".$row[ 'created_at' ]."</td> 
-                        <td>".$row[ 'updated_at' ]."</td> 
-                        <td><a href = 'edit_view.php?rid=$id'>Edit</td> 
-                     <td><a href = 'controller/delete_process.php?delid=$id&rno=$report_id' class = 'btn btn-danger'>Delete</td></td> 
-                        </tr>
-                      
-                        
-                        ";
-
-                    }
-
-            }   
-        
-                    ?>
+                $result = $report->viewAttendanceByID( $conn, $report_id, $report );
 
 
 
+                while( $row = mysqli_fetch_assoc( $result ) ) {
+                $id = $row['attendance_id'];
+
+
+                echo "<tr class='table-info text-center'>
+                    <td>".$row[ 'route_no' ]."</td>
+                    <td>".$row[ 'route' ]."</td>
+                    <td>".$row[ 'vehicle_no' ]."</td>
+                    <td>".$row[ 'driver' ]."</td>
+                    <td>".$row[ 'helper' ]."</td>
+                    <td>".$row[ 'staff_count' ]."</td>
+                    <td>".$row[ 'date' ]."</td>
+                    <td>".$row[ 'mark_in' ]."</td>
+                    <td>".$row[ 'mark_out' ]."</td>
+                    <td>".$row[ 'status' ]."</td>
+                    <td>".$row[ 'created_at' ]."</td>
+                    <td>".$row[ 'updated_at' ]."</td>
+                    <td><a href='edit_view.php?rid=$id'>Edit</td>
+                    <td><button onclick='promptForPassword($id)' class='btn btn-danger'>Delete</button></td>
+                    
+
+                   
+                </tr>
+                ";
+
+                }
+
+                }
+
+                ?>
             </tbody>
+
             <button class='btn btn-success' id='exportBtn'> Export Data To Excel File</button>
 
 
         </table>
     </div>
-
 
     <div class="msg">
         <?php
@@ -197,15 +197,21 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
     </div>
 
-
+    <?php  require_once('includes/footer.php')?>
     <script type="text/javascript" charset="utf8" src="DataTables/js/jquery.dataTables.js">
     </script>
     <script>
+    //DATA TABLE JQUERY FOR SEARCH SORT VIEW
     $(document).ready(function() {
         var table = $('#attendanceTable').DataTable({
                 "order": [
                     [10, "desc"],
 
+                ],
+                "pageLength": 52, // Set default to 60 rows per page
+                "lengthMenu": [
+                    [25, 50, 100, -1],
+                    [25, 50, 100, "All"]
                 ],
                 initComplete: function() {
                     this.api().columns().every(function() {
@@ -225,7 +231,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                         table.column(0).search(routeNo === '' ? '' : '^' + routeNo + '$', true,
                             false).draw();
                     });
-                }
+                },
+
 
 
 
@@ -234,6 +241,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
 
         );
+
+
+        //SEARCH BETWEEN TWO DATE
 
         $('#startDate, #endDate').on('change', function() {
             table.draw();
@@ -245,7 +255,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                 var endDate = $('#endDate').val();
 
                 if ((startDate === '' && endDate === '') ||
-                    (startDate <= data[4] && endDate >= data[4])) {
+                    (startDate <= data[6] && endDate >= data[6]) || startDate == data[6]) {
                     return true;
                 }
 
@@ -255,7 +265,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
     });
 
 
-    //export to excell
+    //EXPORT TO EXCELL JAVASCRIPT
 
     document.getElementById('exportBtn').addEventListener('click', function() {
         var table = document.getElementById('attendanceTable');
@@ -276,9 +286,34 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         var blob = new Blob([s2ab(wbout)], {
             type: "application/octet-stream"
         });
-        var filename = 'exported_data.xlsx';
-        saveAs(blob, filename);
+        var filename = 'Attendance_Data.xlsx';
+
+        // Create an anchor element and trigger a click event
+        var a = document.createElement('a');
+        a.href = window.URL.createObjectURL(blob);
+        a.download = filename;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     });
+
+    //ask password when delete
+    function promptForPassword(id) {
+
+        report_id1 = document.getElementById("rno").value;
+
+        //alert(report_id1);
+        var enteredPassword = prompt("Please enter the password:");
+        var correctPassword = "111";
+
+        if (enteredPassword === correctPassword) {
+            // Redirect to delete_process.php with parameters
+            window.location.href = 'controller/delete_process.php?delid=' + id + '&rno=' + report_id1;
+        } else {
+            alert("Incorrect password. Access denied.");
+        }
+    }
     </script>
     <script src="FileSaver.js-master/FileSaver.min.js"></script>
 

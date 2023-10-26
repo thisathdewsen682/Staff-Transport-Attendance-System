@@ -27,7 +27,7 @@
                                     <div class="form-outline form-white mb-4">
                                         <input type="text" id="usr_name"
                                             class="form-control form-control-lg bg-dark text-white" name='usr_name' />
-                                        <label class="form-label mt-3" for="typeEmailX">Email</label>
+                                        <label class="form-label mt-3" for="typeEmailX">Username</label>
                                     </div>
 
                                     <div class="form-outline form-white mb-4">

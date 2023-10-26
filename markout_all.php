@@ -15,7 +15,9 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 if ( isset( $_GET[ 'rno' ] ) ) {
 
     $rno =  $_GET[ 'rno' ];
+
     echo $rno;
+
     $obj = new Attendance( $rno,
     '',
     '',
@@ -32,8 +34,11 @@ if ( isset( $_GET[ 'rno' ] ) ) {
     $result = $obj->markOut( $conn, $obj, $rno );
 
     if ( $result ) {
-        echo 's';
+        echo 'success';
 
+    } else {
+        echo 'failed';
+        echo mysqli_error( $conn );
     }
 
 }

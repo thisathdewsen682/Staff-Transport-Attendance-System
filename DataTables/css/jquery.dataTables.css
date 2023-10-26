@@ -663,3 +663,7 @@ html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
 html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   background: #3a3a3a;
 }
+
+.green{
+  background-color: green!important;
+}

@@ -15,18 +15,21 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 if ( isset( $_GET[ 'delid' ] ) ) {
     $id = $_GET[ 'delid' ];
     $rno = $_GET[ 'rno' ];
-    $att = new Attendance( '', '', '', '', '', '', '', '', '', '' );
-    $result = $att->deletById( $conn, $att, $id );
+    //$att = new Attendance( '', '', '', '', '', '', '', '', '', '', '' );
+    $result = Attendance::deletById( $conn, $id );
+
+    echo $url = 'Location : ../report.php?rno=' . $rno;
 
     if ( $result ) {
-        echo 's';
+        //echo 's';
         $_SESSION[ 'successmsg' ] = 'Record Deleted Succesfully';
         header( 'Location: ../report.php?rno=' . $rno );
+
         //
     } else {
-        echo 'f';
+        //echo 'f';
         $_SESSION[ 'erromsg' ] = 'Record Not Deleted';
-        header( 'Location: ../report.php?rno=' . $rno );
+        header( $url );
 
     }
 }

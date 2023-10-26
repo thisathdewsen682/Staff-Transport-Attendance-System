@@ -32,7 +32,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         var enteredPassword = prompt("Please enter the password:");
 
 
-        var correctPassword = "1";
+        var correctPassword = "111";
 
         if (enteredPassword === correctPassword) {
 
@@ -159,6 +159,7 @@ if ( isset( $_GET[ 'rid' ] ) ) {
     <script src='bootstrap/js/bootstrap.js'></script>
     <script src='js/time.js'></script>
     <script>
+    //MESSAGE SHOW AFTER UPDATE AJAX
     function showModal(message) {
         document.getElementById('messageBody').innerHTML = message;
         var modal = new bootstrap.Modal(document.getElementById('messageModal'));
@@ -179,9 +180,10 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
     }
 
-    //update ajax
+    // UPDATE AJAX
 
     function updateAttendance(event) {
+
         event.preventDefault();
         var form = event.target;
         var formData = new FormData(form);
