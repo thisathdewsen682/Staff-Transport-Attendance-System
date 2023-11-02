@@ -26,7 +26,7 @@ function markTime() {
 
     date_default_timezone_set( 'Asia/Colombo' );
 
-    return date ( 'H:i:s' );
+    return date ( 'H:i' );
 }
 
 function currentTime() {

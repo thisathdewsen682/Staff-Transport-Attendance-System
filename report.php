@@ -103,14 +103,14 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             if ( isset( $_GET['rno'] ) && $_GET['rno'] == 'all') {
             $report_id = $_GET[ 'rno' ];
      
-            $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '' );
+            $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' );
 
             $result = $report->viewAllAttendance( $conn,$report );
 
            
 
                         while( $row = mysqli_fetch_assoc( $result ) ) {
-                        $id = $row['attendance_id'];
+                        $id = $row['attendance_id'];    
                             echo "<tr class = 'table-info text-center'>
                             <td>".$row[ 'route_no' ]."</td>
                             <td>".$row[ 'route' ]."</td>
@@ -124,7 +124,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                             <td>".$row[ 'status' ]."</td>
                             <td>".$row[ 'created_at' ]."</td> 
                             <td>".$row[ 'updated_at' ]."</td> 
-                            <td><a href = 'edit_view.php?rid=$id' class = 'edit'>Edit</td> 
+                            <td><a href = 'edit_view.php?rid=$id' class = 'edit btn btn-success'>Edit</td> 
                             
                     <td><button onclick='promptForPassword($id, $report_id)' class='btn btn-danger'>Delete</button></td>
 
@@ -138,7 +138,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                 }else if ( isset( $_GET[ 'rno' ] ) ) {
 
                 $report_id = $_GET[ 'rno' ];
-                $report = new Attendance( '', '', '', '', '', '','','', '', '', '', '' );
+                $report = new Attendance( '', '', '', '', '', '','','', '', '', '', '','' );
 
                 $result = $report->viewAttendanceByID( $conn, $report_id, $report );
 

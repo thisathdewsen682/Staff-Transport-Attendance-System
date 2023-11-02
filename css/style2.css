@@ -1,0 +1,143 @@
+
+
+.wrapper {
+        display: flex;
+        flex-direction: row;
+        
+    }
+
+
+.menu {
+  width: 200px;
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
+  opacity: 1;
+  transition: .2s all;
+ 
+ 
+}
+
+.default{
+    width: 0px;
+    transition: .2s all;
+    opacity: 0;
+    
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 6px;
+  height: 100vh;
+  border-radius: 10px;
+}
+.menu ul li {
+ border-radius: 6px;
+
+}
+.rotate {
+    transform: rotate(90deg);
+    background-color: #fa8a8a;
+    border-radius: 4px;
+}
+
+
+.menu-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+
+ 
+  
+}
+.menu-item:first-child {
+    margin-top: 40px;
+}
+.menu-toggle {
+ position: absolute;
+ top: 10px;
+ padding: 4px;
+ transition: .5s all;
+ left: 10px;
+ flex-direction: column;
+ cursor: pointer;
+ 
+ 
+
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fcfcfc;
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+.menu-item:hover {
+  background-color: #555;
+}
+.menu-item{
+    background-color: #5aa9f3!important;
+}
+.menu-item.active {
+  background-color: #d44141!important;
+}
+
+.content {
+        flex-grow: 1;
+        width: 100%; /* Ensure it takes up full width */
+        max-width: none; 
+        margin-left: 35px; 
+        height: 100vh;
+        overflow-y: scroll;
+     }
+
+.bus,
+.report {
+  display: none;
+
+
+}
+
+.bus.active,
+.report.active {
+  display: flex;
+
+
+
+  
+}
+
+
+/*bus manage*/
+
+
+.bus-view-edit{
+
+    padding: 20px;
+    flex-basis: 100%;
+    margin-top: 10px;
+  
+    /*box-shadow: 0px 1px  8px rgba(95, 95, 95, 0.205);*/
+}
+.att-view-edit{
+    padding: 20px;
+    flex-basis: 100%;
+    margin-top: 10px;
+    
+}
+.edit-form{
+  display: none;
+}
+.att-edit-form{
+  display: none;
+}
+
+.show{
+    display: block!important;
+}

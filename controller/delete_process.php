@@ -18,7 +18,7 @@ if ( isset( $_GET[ 'delid' ] ) ) {
     //$att = new Attendance( '', '', '', '', '', '', '', '', '', '', '' );
     $result = Attendance::deletById( $conn, $id );
 
-    echo $url = 'Location : ../report.php?rno=' . $rno;
+    //echo $url = 'Location : ../report.php?rno=' . $rno;
 
     if ( $result ) {
         //echo 's';
@@ -33,4 +33,14 @@ if ( isset( $_GET[ 'delid' ] ) ) {
 
     }
 }
+
+if ( isset( $_GET[ 'attdelid' ] ) ) {
+
+    $id = $_GET[ 'attdelid' ];
+    //echo $id;
+
+    $result = Attendance::deletById( $conn, $id );
+
+}
+
 ?>

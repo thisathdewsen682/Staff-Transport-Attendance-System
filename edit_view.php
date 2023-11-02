@@ -66,7 +66,7 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
     $report_id = $_GET[ 'rid' ];
 
-    $report = new Attendance( '', '', '', '', '', '', '','', '',  '', '', '' );
+    $report = new Attendance( '', '', '', '', '', '', '','', '',  '', '', '' ,'','');
 
     $result = $report->viewAttendanceByID1( $conn, $report_id, $report );
 
@@ -86,6 +86,14 @@ if ( isset( $_GET[ 'rid' ] ) ) {
         echo "
         <div class='container mt-3'>
             <form  method = 'POST' id = 'attendanceUpdate'>
+            <input class='form-control form-control-lg' name = 'turn_count' type='hidden' placeholder='Staff Count'
+                            aria-label='.form-control-lg example' value='" . $row[ 'turn_count' ] . "'>
+            <input class='form-control form-control-lg' name = 'route_distance' type='hidden' placeholder='Staff Count'
+                            aria-label='.form-control-lg example' value='" . $row[ 'route_distance' ] . "'>
+
+
+
+
                 <div class='row'>
                     <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center'>
                         <label for='vehicleNo' class='form-label'>Vehicle No</label>

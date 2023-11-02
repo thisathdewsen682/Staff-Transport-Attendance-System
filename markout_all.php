@@ -29,16 +29,19 @@ if ( isset( $_GET[ 'rno' ] ) ) {
     markTime(),
     'arrived and departured',
     '',
+    '',
+    '',
+    '',
     '' );
 
     $result = $obj->markOut( $conn, $obj, $rno );
 
     if ( $result ) {
-        echo 'success';
+        //  echo 'success';
 
     } else {
-        echo 'failed';
-        echo mysqli_error( $conn );
+        // echo 'failed';
+        //echo mysqli_error( $conn );
     }
 
 }

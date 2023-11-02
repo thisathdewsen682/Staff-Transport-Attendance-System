@@ -16,10 +16,11 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     // Sanitize and validate input
     //echo $_POST[ 'checked' ];
     //echo $_POST[ 'route_no' ];
-    //echo $_POST[ 'route_name' ];
+    //echo $_POST[ 'turncount_in' ];
     //echo $_POST[ 'vehicle_no' ];
     //echo $_POST[ 'employee_count' ];
     //echo $_POST[ 'action' ];
+    //echo $_POST[ 'distance' ];
     $obj = new Attendance( $_POST[ 'route_no' ],
     $_POST[ 'route_name' ],
     $_POST[ 'vehicle_no' ],
@@ -31,6 +32,9 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     '',
     'arrived',
     currentTime(),
+    '',
+    $_POST[ 'turncount_in' ],
+    $_POST[ 'distanceIn' ],
     '' );
 
     $result = $obj->markAttendace( $conn, $obj );
@@ -48,8 +52,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
 if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     $rno = $_POST[ 'route_no' ];
 
-    // echo $rno;
-
+    //echo 'sss';
+    // echo $_POST[ 'distanceOut' ];
     $obj = new Attendance( $rno,
     '',
     '',
@@ -61,7 +65,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     markTime(),
     'arrived and departured',
     '',
-    '' );
+    '',
+    $_POST[ 'turncount_out' ],
+    '',
+    $_POST[ 'distanceOut' ] );
 
     $result = $obj->markOut( $conn, $obj, $rno );
 

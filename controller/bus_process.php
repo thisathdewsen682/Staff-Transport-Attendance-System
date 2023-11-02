@@ -17,6 +17,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
     $vehicleNo = $_POST[ 'vehicle_no' ];
     $routeNo = $_POST[ 'route_no' ];
     $routeName = $_POST[ 'route_name' ];
+    $type = $_POST[ 'type' ];
+    //echo $type;
+    $routeDistance1 = $_POST[ 'route_distance1' ];
+    $routeDistance2 = $_POST[ 'route_distance2' ];
 
     $errors = array();
 
@@ -29,7 +33,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
 
     if ( !$errors ) {
 
-        $obj = new Bus( $vehicleNo, $routeNo, $routeName );
+        $obj = new Bus( $vehicleNo, $routeNo, $routeName, $type, $routeDistance1, $routeDistance2 );
 
         $result = $obj->insertNewRoute( $conn, $obj, $routeNo );
         if ( $result ) {
