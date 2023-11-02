@@ -186,16 +186,16 @@ if ( isset( $_SESSION[ 'emp_no' ] ) ) {
                                         </div>
                                         <div class="mb-3">
 
-                                            <input type="number" step="0.01" class="form-control" id="route_distance" 1
+                                            <input type="number" step="0.01" class="form-control" id="route_distance1"
                                                 aria-describedby="nameHelp" name='route_distance1'
-                                                placeholder='ROUTE DISTANCE 1' required>
+                                                placeholder='ROUTE DISTANCE ' required>
 
                                         </div>
                                         <div class="mb-3">
 
                                             <input type="number" step="0.01" class="form-control" id="route_distance2"
                                                 aria-describedby="nameHelp" name='route_distance2'
-                                                placeholder='ROUTE DISTANCE 2' required>
+                                                placeholder='ADDITIONAL MILAGE' required>
 
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -30,9 +30,9 @@ if ( isset( $_GET[ 'rno' ] ) ) {
     'arrived and departured',
     '',
     '',
+    $_GET[ 'turnCountOut' ],
     '',
-    '',
-    '' );
+    $_GET[ 'distanceOut' ] );
 
     $result = $obj->markOut( $conn, $obj, $rno );
 

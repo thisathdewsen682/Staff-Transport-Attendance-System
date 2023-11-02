@@ -667,7 +667,8 @@ Print QR</a>-->
                         console.log(distanceOut);
 
                         var xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'markout_all.php?rno=' + routeNo + '&distanceOut=' + distanceOut, true);
+                        xhr.open('GET', 'markout_all.php?rno=' + routeNo + '&distanceOut=' + distanceOut +
+                            '&turnCountOut=' + turnCountOut, true);
 
                         xhr.onload = function() {
                             if (xhr.status >= 200 && xhr.status < 400) {
@@ -684,7 +685,7 @@ Print QR</a>-->
 
                                 if (requestSuccess) {
                                     setTimeout(function() {
-                                        // location.reload();
+                                        location.reload();
                                     }, 1000); // Reload after 2 seconds if request was successful
                                     // location.reload();
                                 }
