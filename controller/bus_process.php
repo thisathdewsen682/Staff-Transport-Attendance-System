@@ -4,13 +4,18 @@ include( '../includes/db_connect.php' );
 include( '../model/Bus.class.php' );
 include( '../common/common_function.php' );
 
+$emp_no =  '';
+$emp_name =  '';
+$isadmin =  '';
+
 if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 
     header( 'Location: login.php' );
+} else {
+    $emp_no =  $_SESSION[ 'emp_no' ];
+    $emp_name =  $_SESSION[ 'emp_name' ];
+    $isadmin =  $_SESSION[ 'is_admin' ];
 }
-$emp_no =  $_SESSION[ 'emp_no' ];
-$emp_name =  $_SESSION[ 'emp_name' ];
-$isadmin =  $_SESSION[ 'is_admin' ];
 
 if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
 

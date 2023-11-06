@@ -8,9 +8,10 @@ if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 
     header( 'Location: login.php' );
 }
+
 $emp_no =  $_SESSION[ 'emp_no' ];
 $emp_name =  $_SESSION[ 'emp_name' ];
-//$isadmin =  $_SESSION[ 'is_admin' ];
+$isadmin =  $_SESSION[ 'is_admin' ];
 
 if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     // Sanitize and validate input
@@ -35,6 +36,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     '',
     $_POST[ 'turncount_in' ],
     $_POST[ 'distanceIn' ],
+    '',
+    '',
     '' );
 
     $result = $obj->markAttendace( $conn, $obj );
@@ -68,7 +71,9 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     '',
     $_POST[ 'turncount_out' ],
     '',
-    $_POST[ 'distanceOut' ] );
+    $_POST[ 'distanceOut' ],
+    '',
+    '' );
 
     $result = $obj->markOut( $conn, $obj, $rno );
 

@@ -17,9 +17,11 @@ class Attendance {
     var $turn_count;
     var $route_distance_in_km;
     var $route_distance_out_km;
+    var $updated_ip;
+    var $updated_emp_no;
 
     function  Attendance(
-        $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at, $turn_count, $route_distance_in_km, $route_distance_out_km
+        $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at, $turn_count, $route_distance_in_km, $route_distance_out_km, $updated_ip, $updated_emp_no
     ) {
         //$this->attendance_id = $attendance_id;
         $this->route_no = $route_no;
@@ -37,6 +39,8 @@ class Attendance {
         $this->turn_count = $turn_count;
         $this->route_distance_in_km = $route_distance_in_km;
         $this->route_distance_out_km = $route_distance_out_km;
+        $this->updated_ip = $updated_ip;
+        $this->updated_emp_no = $updated_emp_no;
     }
 
     function markAttendace( $conn, $obj ) {
@@ -105,7 +109,7 @@ class Attendance {
             return $result;
 
         } else {
-            // echo 'Not Marked In';
+            echo 'Not Marked In';
         }
     }
 
@@ -120,7 +124,29 @@ class Attendance {
 
     function viewAttendanceByID1( $conn, $routeNo, $report ) {
 
-        $sql = 'SELECT * FROM   attendance_tbl WHERE attendance_id = '. $routeNo .'  ORDER BY created_at DESC';
+        // $sql = 'SELECT * FROM   attendance_tbl WHERE attendance_id = '. $routeNo .'  ORDER BY created_at DESC';
+
+        $sql = 'SELECT 
+    attendance_id, 
+    route_no, 
+    route, 
+    vehicle_no, 
+    driver, 
+    helper, 
+    staff_count, 
+    date, 
+    mark_in, 
+    mark_out, 
+    status, 
+    created_at, 
+    updated_at, 
+    turn_count, 
+    route_distance_in_km, 
+    route_distance_out_km, 
+    (route_distance_in_km + route_distance_out_km) as full_route_distance_km
+    FROM 
+    attendance_tbl WHERE attendance_id = '. $routeNo .'  ORDER BY created_at DESC;
+';
         $result = mysqli_query( $conn, $sql );
         //var_dump( $result );
         return $result;
@@ -139,7 +165,7 @@ class Attendance {
     function updateAttendanceById( $conn, $att, $id ) {
 
         $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', driver = '".$att->driver."',helper = '".$att->helper."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
-        $att->mark_out."', updated_at = '".$att->updated_at ."',  route_distance_in_km =  '".$att->route_distance_in_km."', route_distance_out_km =  '".$att->route_distance_out_km."' WHERE attendance_id = '".$id."';";
+        $att->mark_out."', updated_at = '".$att->updated_at ."',  route_distance_in_km =  '".$att->route_distance_in_km."', route_distance_out_km =  '".$att->route_distance_out_km."',  updated_ip =  '".$att->updated_ip."', updated_empno =  '".$att->updated_emp_no."' WHERE attendance_id = '".$id."';";
         $result = mysqli_query( $conn, $sql );
         return $result;
 

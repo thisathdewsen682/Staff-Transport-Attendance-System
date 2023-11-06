@@ -82,6 +82,7 @@ if ( isset( $_GET[ 'attid' ] ) ) {
         $vehicle_no = $row[ 'vehicle_no' ];
         $mark_in = $row[ 'mark_in' ];
         $mark_out = $row[ 'mark_out' ];
+
         $status = $row[ 'status' ];
         $route_distance = $row[ 'full_route_distance_km' ];
         $turn_count = $row[ 'turn_count' ];

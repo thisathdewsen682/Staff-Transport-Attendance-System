@@ -4,13 +4,18 @@ include( '../includes/db_connect.php' );
 include( '../common/common_function.php' );
 include( '../model/Attendance.class.php' );
 
+$emp_no =  '';
+$emp_name = '';
+$isadmin = '';
+
 if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 
     header( 'Location: login.php' );
+} else {
+    $emp_no =  $_SESSION[ 'emp_no' ];
+    $emp_name =  $_SESSION[ 'emp_name' ];
+    $isadmin =  $_SESSION[ 'is_admin' ];
 }
-$emp_no =  $_SESSION[ 'emp_no' ];
-$emp_name =  $_SESSION[ 'emp_name' ];
-$isadmin =  $_SESSION[ 'is_admin' ];
 
 if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
     if ( isset( $_POST[ 'recordID' ] ) ) {
@@ -19,8 +24,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
         $vehicleNo = $_POST[ 'vehicle_no' ];
         $staffCount = $_POST[ 'staff_count' ];
         $inTime = $_POST[ 'startTime' ];
-        $outTime = $_POST[ 'endTime' ];
-        $route_distance = $_POST[ 'route_distance' ];
+        $outTime = !empty( $_POST[ 'endTime' ] ) ? $_POST[ 'endTime' ] : null;
+        echo $outTime;
+        $route_distance1 = $_POST[ 'route_distance1' ];
+        $route_distance2 = $_POST[ 'route_distance2' ];
         $turn_count = $_POST[ 'turn_count' ];
 
         $driver = '0';
@@ -35,7 +42,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
             //echo $helper;
         }
 
-        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance );
+        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance1, $route_distance2, '', $emp_no );
 
         $result = $att->updateAttendanceById( $conn, $att, $id );
 
@@ -74,7 +81,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
         //$route_distance_div = ( parseFloat( $route_distance )/2 );
         $route_distance_div = floatval( $route_distance ) / 2;
 
-        $att = new Attendance( '', '', $vehicle_no, $driver, $helper, $staff_count, '', $startTime, $endTime, 'changed', '', currentTime(), '', $route_distance_div, $route_distance_div );
+        $att = new Attendance( '', '', $vehicle_no, $driver, $helper, $staff_count, '', $startTime, $endTime, 'changed', '', currentTime(), '', $route_distance_div, $route_distance_div, '', $emp_no );
 
         $result = $att->updateAttendanceById( $conn, $att, $id );
 

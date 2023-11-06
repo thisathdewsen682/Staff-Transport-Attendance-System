@@ -12,6 +12,7 @@ $emp_no =  $_SESSION[ 'emp_no' ];
 $emp_name =  $_SESSION[ 'emp_name' ];
 $isadmin =  $_SESSION[ 'is_admin' ];
 
+1
 ?>
 
 <!DOCTYPE html>
@@ -66,8 +67,7 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
     $report_id = $_GET[ 'rid' ];
 
-    $report = new Attendance( '', '', '', '', '', '', '','', '',  '', '', '' ,'','');
-
+        $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','');
     $result = $report->viewAttendanceByID1( $conn, $report_id, $report );
 
     while ( $row = mysqli_fetch_assoc( $result ) ) {
@@ -88,8 +88,12 @@ if ( isset( $_GET[ 'rid' ] ) ) {
             <form  method = 'POST' id = 'attendanceUpdate'>
             <input class='form-control form-control-lg' name = 'turn_count' type='hidden' placeholder='Staff Count'
                             aria-label='.form-control-lg example' value='" . $row[ 'turn_count' ] . "'>
-            <input class='form-control form-control-lg' name = 'route_distance' type='hidden' placeholder='Staff Count'
-                            aria-label='.form-control-lg example' value='" . $row[ 'route_distance' ] . "'>
+            <input class='form-control form-control-lg' name = 'route_distance1' type='hidden' placeholder='Staff Count'
+                            aria-label='.form-control-lg example' value='" . $row[ 'route_distance_in_km' ] . "'>
+
+
+            <input class='form-control form-control-lg' name = 'route_distance2' type='hidden' placeholder='Staff Count'
+            aria-label='.form-control-lg example' value='" . $row[ 'route_distance_out_km' ] . "'>  
 
 
 
