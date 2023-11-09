@@ -255,6 +255,7 @@ if ( isset( $_SESSION[ 'emp_no' ] ) ) {
                                 <th class='text-center' scope='col'>Updated At</th>
                                 <th class='text-center' scope='col'>Turn Count</th>
                                 <th class='text-center' scope='col'>Full Km </th>
+                                <th class='text-center' scope='col'>Additional </th>
                                 <th class='text-center' scope='col'>Edit</th>
                                 <th class='text-center' scope='col'>Delete</th>
 

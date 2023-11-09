@@ -55,6 +55,7 @@
             var filteredData = table.column(columnIdxToSum, {
                 "filter": "applied"
             }).data();
+            
             var sum = filteredData.reduce(function(acc, curr) {
                 return acc + parseFloat(curr);
             }, 0);
@@ -64,14 +65,34 @@
             var filteredData = table.column(columnIdxToSum, {
                 "filter": "applied"
             }).data();
+            
             var sumTurn = filteredData.reduce(function(acc, curr) {
                 return acc + parseFloat(curr);
             }, 0);
             var roundedSum = sum.toFixed(2);
-            document.getElementById('km').value = roundedSum;
+            //document.getElementById('km').value = roundedSum;
             document.getElementById('turncount').value = sumTurn;
             console.log('Sum of column:', sum);
             console.log('Sum of column:', sumTurn);
+
+            
+           var column13Data = table.column(13, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
+            var column14Data = table.column(14, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
+
+// Sum the values in columns 13 and 14
+            var sumColumn13 = column13Data.reduce(function(acc, val) {
+            return acc + parseFloat(val);
+            }, 0);
+
+            var sumColumn14 = column14Data.reduce(function(acc, val) {
+            return acc + parseFloat(val);
+            }, 0);
+
+// Sum of columns 13 and 14 for currently shown rows
+            var totalSum = sumColumn13 + sumColumn14;
+
+             document.getElementById('km').value = totalSum.toFixed(2);
+
         }
 
         calculateSum();

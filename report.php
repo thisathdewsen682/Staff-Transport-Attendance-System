@@ -103,7 +103,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             if ( isset( $_GET['rno'] ) && $_GET['rno'] == 'all') {
             $report_id = $_GET[ 'rno' ];
      
-            $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','');
+            $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','','','');
 
             $result = $report->viewAllAttendance( $conn,$report );
 
@@ -138,7 +138,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                 }else if ( isset( $_GET[ 'rno' ] ) ) {
 
                 $report_id = $_GET[ 'rno' ];
-                    $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','');
+                    $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','','','');
 
                 $result = $report->viewAttendanceByID( $conn, $report_id, $report );
 

@@ -1,9 +1,6 @@
-
-
 .wrapper {
         display: flex;
-        flex-direction: row;
-        
+        flex-direction: row;      
     }
 
 
@@ -14,15 +11,12 @@
   color: #fff;
   opacity: 1;
   transition: .2s all;
- 
- 
 }
 
 .default{
     width: 0px;
     transition: .2s all;
-    opacity: 0;
-    
+    opacity: 0; 
 }
 
 .menu ul {
@@ -31,9 +25,9 @@
   height: 100vh;
   border-radius: 10px;
 }
+
 .menu ul li {
  border-radius: 6px;
-
 }
 .rotate {
     transform: rotate(90deg);
@@ -41,16 +35,13 @@
     border-radius: 4px;
 }
 
-
 .menu-item {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px;
-
- 
-  
 }
+
 .menu-item:first-child {
     margin-top: 40px;
 }
@@ -62,10 +53,8 @@
  left: 10px;
  flex-direction: column;
  cursor: pointer;
- 
- 
-
 }
+
 a{
     text-decoration: none;
     color: white;
@@ -107,15 +96,9 @@ a{
 .bus.active,
 .report.active {
   display: flex;
-
-
-
-  
 }
 
-
 /*bus manage*/
-
 
 .bus-view-edit{
 

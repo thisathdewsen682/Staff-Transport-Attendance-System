@@ -21,7 +21,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     //echo $_POST[ 'vehicle_no' ];
     //echo $_POST[ 'employee_count' ];
     //echo $_POST[ 'action' ];
-    //echo $_POST[ 'distance' ];
+    echo $_POST[ 'additionalValueIn' ];
     $obj = new Attendance( $_POST[ 'route_no' ],
     $_POST[ 'route_name' ],
     $_POST[ 'vehicle_no' ],
@@ -37,8 +37,12 @@ if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     $_POST[ 'turncount_in' ],
     $_POST[ 'distanceIn' ],
     '',
+    $_POST[ 'additionalValueIn' ],
+    '',
     '',
     '' );
+
+    //var_dump( $obj );
 
     $result = $obj->markAttendace( $conn, $obj );
 
@@ -56,7 +60,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     $rno = $_POST[ 'route_no' ];
 
     //echo 'sss';
-    // echo $_POST[ 'distanceOut' ];
+    echo $_POST[ 'additionalValueOut' ];
     $obj = new Attendance( $rno,
     '',
     '',
@@ -72,6 +76,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST'  && $_POST[ 'action' ] == 'out' ) {
     $_POST[ 'turncount_out' ],
     '',
     $_POST[ 'distanceOut' ],
+    '',
+    $_POST[ 'additionalValueOut' ],
     '',
     '' );
 

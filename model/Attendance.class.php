@@ -17,11 +17,13 @@ class Attendance {
     var $turn_count;
     var $route_distance_in_km;
     var $route_distance_out_km;
+    var $additional_in;
+    var $additional_out;
     var $updated_ip;
     var $updated_emp_no;
 
     function  Attendance(
-        $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at, $turn_count, $route_distance_in_km, $route_distance_out_km, $updated_ip, $updated_emp_no
+        $route_no, $route, $vehicle_no, $driver, $helper, $staff_count, $date, $mark_in, $mark_out, $status, $created_at, $updated_at, $turn_count, $route_distance_in_km, $route_distance_out_km, $additional_in, $additional_out, $updated_ip, $updated_emp_no
     ) {
         //$this->attendance_id = $attendance_id;
         $this->route_no = $route_no;
@@ -39,6 +41,8 @@ class Attendance {
         $this->turn_count = $turn_count;
         $this->route_distance_in_km = $route_distance_in_km;
         $this->route_distance_out_km = $route_distance_out_km;
+        $this->additional_in = $additional_in;
+        $this->additional_out = $additional_out;
         $this->updated_ip = $updated_ip;
         $this->updated_emp_no = $updated_emp_no;
     }
@@ -69,7 +73,8 @@ class Attendance {
                             `created_at` ,
                             `updated_at`,
                             `turn_count`,
-                            `route_distance_in_km`
+                            `route_distance_in_km`,
+                            `additional_in`
 
                             )
                             VALUES (
@@ -85,7 +90,8 @@ class Attendance {
                             '". $obj->created_at ."',
                             '". $obj->updated_at ."',
                             '". $obj->turn_count ."',
-                            '". $obj->route_distance_in_km ."'
+                            '". $obj->route_distance_in_km ."',
+                            '". $obj->additional_in ."'
                             );";
             //echo $sql;
             $result = mysqli_query( $conn, $sql );
@@ -104,7 +110,7 @@ class Attendance {
         if ( mysqli_num_rows( $checkedStatus ) > 0 ) {
 
             $sql = "UPDATE attendance_tbl SET mark_out =  '". $obj->mark_out ."', status = '". $obj->status ."', 
-            updated_at = '". $obj->updated_at ."', turn_count = '". $obj->turn_count ."' , route_distance_out_km = '". $obj->route_distance_out_km ."' WHERE route_no = ". $rno .' AND mark_out IS NULL';
+            updated_at = '". $obj->updated_at ."', turn_count = '". $obj->turn_count ."' , route_distance_out_km = '". $obj->route_distance_out_km ."', aditional_out = '". $obj->additional_out ."' WHERE route_no = ". $rno .' AND mark_out IS NULL';
             $result = mysqli_query( $conn, $sql );
             return $result;
 
@@ -144,6 +150,7 @@ class Attendance {
     route_distance_in_km, 
     route_distance_out_km, 
     (route_distance_in_km + route_distance_out_km) as full_route_distance_km
+   
     FROM 
     attendance_tbl WHERE attendance_id = '. $routeNo .'  ORDER BY created_at DESC;
 ';
@@ -204,7 +211,8 @@ class Attendance {
     turn_count, 
     route_distance_in_km, 
     route_distance_out_km, 
-    (route_distance_in_km + route_distance_out_km) as full_route_distance_km
+    (route_distance_in_km + route_distance_out_km) as full_route_distance_km,
+     (additional_in + aditional_out) as additional_km
 FROM 
     attendance_tbl ORDER BY created_at DESC;
 ';
@@ -213,6 +221,7 @@ FROM
         while( $row = mysqli_fetch_assoc( $result ) ) {
             $id = $row[ 'attendance_id' ];
             $rounded_distance = round( $row[ 'full_route_distance_km' ], 2 );
+            $additonal = round( $row[ 'additional_km' ], 2 );
 
             echo "<tr class='table-info text-center'>
                     <td>".$row[ 'route_no' ]."</td>
@@ -229,6 +238,7 @@ FROM
                     <td>".$row[ 'updated_at' ]."</td>
                     <td>".$row[ 'turn_count' ]."</td>
                     <td>".$rounded_distance."</td>
+                    <td>".$additonal."</td>
                       <td><a href = '#' class = 'edit_att btn btn-success' data-id='{$row['attendance_id']}'>Edit</td>
                 <td><a href = '#' class = 'delete_att btn btn-danger' data-id='{$row['attendance_id']}'>Delete</td></td>
                     

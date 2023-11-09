@@ -8,6 +8,16 @@ $emp_no =  '';
 $emp_name = '';
 $isadmin = '';
 
+if ( !empty( $_SERVER[ 'HTTP_CLIENT_IP' ] ) ) {
+    //ip from share internet
+    $ip = $_SERVER[ 'HTTP_CLIENT_IP' ];
+} elseif ( !empty( $_SERVER[ 'HTTP_X_FORWARDED_FOR' ] ) ) {
+    //ip pass from proxy
+    $ip = $_SERVER[ 'HTTP_X_FORWARDED_FOR' ];
+} else {
+    $ip = $_SERVER[ 'REMOTE_ADDR' ];
+}
+
 if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 
     header( 'Location: login.php' );
@@ -24,8 +34,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
         $vehicleNo = $_POST[ 'vehicle_no' ];
         $staffCount = $_POST[ 'staff_count' ];
         $inTime = $_POST[ 'startTime' ];
-        $outTime = !empty( $_POST[ 'endTime' ] ) ? $_POST[ 'endTime' ] : null;
-        echo $outTime;
+        $outTime = $_POST[ 'endTime' ];
         $route_distance1 = $_POST[ 'route_distance1' ];
         $route_distance2 = $_POST[ 'route_distance2' ];
         $turn_count = $_POST[ 'turn_count' ];
@@ -42,7 +51,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
             //echo $helper;
         }
 
-        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance1, $route_distance2, '', $emp_no );
+        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance1, $route_distance2, '', '', $ip, $emp_no );
 
         $result = $att->updateAttendanceById( $conn, $att, $id );
 
@@ -63,12 +72,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
             $driver  = $_POST[ 'driver' ];
             //echo $driver;
         }
-
         if ( isset( $_POST[ 'helper' ] ) ) {
             $helper  = $_POST[ 'helper' ];
             //echo $helper;
         }
-
         $id = $_POST[ 'attid' ];
         // echo $id;
         $vehicle_no = $_POST[ 'vehicle_no' ];

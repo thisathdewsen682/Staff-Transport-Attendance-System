@@ -10,16 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     .value;
                 var vehicleNo = this.closest('.bus-no').querySelector('input[name="vhno"]')
                     .value;
-
+                
                 var employeeCount = this.closest('.bus-no').querySelector(
                     'input[name="employee_count"]').value;
-
-
+                
                 //turn count when mark in
-
+                
                 var turnCountIn = this.closest('.bus-no').querySelector(
                     'input[name="turn_count_in"]').value;
-
+                
                 //turn count when mark out
                 var turnCountOut = this.closest('.bus-no').querySelector(
                     'input[name="turn_count_out"]').value;
@@ -27,39 +26,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 var driverCheckbox = this.closest('.bus-no').querySelector(
                     'input[name="driver"]');
-
+                
                 var driver = driverCheckbox.checked ? driverCheckbox.value : '0';
-
+                
                 var helperCheckbox = this.closest('.bus-no').querySelector(
                     'input[name="helper"]');
                 var helper = helperCheckbox.checked ? helperCheckbox.value : '0';
-
+                
                 //type 
-
+                
                 var type = this.closest('.bus-no').querySelector(
                     'input[name="type"]').value;
                 //route distance
-
+                
                 var routeOne = this.closest('.bus-no').querySelector(
                     'input[name="distance_1"]');
-
+                
                 var routeTwo = this.closest('.bus-no').querySelector(
                     'input[name="distance_2"]');
-
+                
                 var routeOneValue = routeOne.value;
-                var additionalValue = routeTwo.value;
+                var additionalValueIn = '';
 
                 console.log(routeOneValue);
 
                 var distanceIn = 0;
-
+               
                 // console.log(routeOne.value);
                 if (routeTwo.checked) {
                     if (type == 'shift') {
-                        distanceIn = parseFloat(routeOneValue) + parseFloat(additionalValue);
+                        distanceIn = parseFloat(routeOneValue);
+                        additionalValueIn = routeTwo.value;
+                        additionalValueIn =  parseFloat(additionalValueIn);
                     } else if (type == 'normal') {
-                        distanceIn = (parseFloat(routeOneValue) / 2) + parseFloat(
-                            additionalValue);
+                       distanceIn = (parseFloat(routeOneValue) / 2) 
+                        additionalValueIn = routeTwo.value;
+                        additionalValueIn =  parseFloat(additionalValueIn);
                     }
 
                 } else {
@@ -71,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 console.log(distanceIn);
+                console.log(additionalValueIn);
 
 
-
-
+                
 
                 //route
                 var xhr = new XMLHttpRequest();
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (xhr.status === 200) {
                             //console.log(turnCountIn);
                             //console.log(turnCountOut);
-                            console.log(xhr.responseText);
+                            //console.log(xhr.responseText);
                             alert(xhr.responseText);
                             window.location.reload();
                             //button.setAttribute('disabled', 'true');
@@ -104,8 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     '&driver=' + encodeURIComponent(driver) +
                     '&helper=' + encodeURIComponent(helper) +
                     '&distanceIn=' + encodeURIComponent(distanceIn) +
+                    '&additionalValueIn=' + encodeURIComponent(additionalValueIn) +
                     '&action=' + 'in';
-
+                     
                 xhr.send(data);
             });
         });
@@ -136,19 +139,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     'input[name="distance_2"]');
 
                 var routeOneValue = routeOne.value;
-                var additionalValue = routeTwo.value;
+                var additionalValueOut = '';
+               //additionalValue = routeTwo.value;
 
-                console.log(routeOneValue);
+               // console.log(routeOneValue);
 
                 var distanceOut = 0;
 
                 // console.log(routeOne.value);
                 if (routeTwo.checked) {
                     if (type == 'shift') {
-                        distanceOut = parseFloat(routeOneValue) + parseFloat(additionalValue);
+                        distanceOut = parseFloat(routeOneValue);
+                        additionalValueOut = routeTwo.value;
+                        additionalValueOut =  parseFloat(additionalValueOut);
                     } else if (type == 'normal') {
-                        distanceOut = (parseFloat(routeOneValue) / 2) + parseFloat(
-                            additionalValue);
+                        distanceOut = (parseFloat(routeOneValue) / 2) 
+                        additionalValueOut = routeTwo.value;
+                        additionalValueOut =  parseFloat(additionalValueOut);
                     }
 
                 } else {
@@ -159,7 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
-                //console.log(distanceOut);
+                console.log(additionalValueOut);
+                console.log(distanceOut);
 
 
                 var xhr = new XMLHttpRequest();
@@ -182,7 +190,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 var data = 'route_no=' + encodeURIComponent(routeNo) +
                     '&action=' + 'out' + '&turncount_out=' + turnCountOut + '&distanceOut=' +
-                    distanceOut;
+                    distanceOut + '&additionalValueOut=' +
+                    additionalValueOut;
 
                 xhr.send(data);
 
@@ -282,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
                         var routeOneValue = routeOne.value;
-                        var additionalValue = routeTwo.value;
+                         var additionalValueOut = '';
 
 
 
@@ -291,10 +300,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         // console.log(routeOne.value);
                         if (routeTwo.checked) {
                             if (type == 'shift') {
-                                distanceOut = parseFloat(routeOneValue) + parseFloat(additionalValue);
+                                 distanceOut = parseFloat(routeOneValue);
+                                 additionalValueOut = routeTwo.value;
+                                 additionalValueOut =  parseFloat(additionalValueOut);
                             } else if (type == 'normal') {
-                                distanceOut = (parseFloat(routeOneValue) / 2) + parseFloat(
-                                    additionalValue);
+                                distanceOut = (parseFloat(routeOneValue) / 2) 
+                                additionalValueOut = routeTwo.value;
+                                additionalValueOut =  parseFloat(additionalValueOut);
                             }
 
                         } else {
@@ -314,7 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         var xhr = new XMLHttpRequest();
                         xhr.open('GET', 'markout_all.php?rno=' + routeNo + '&distanceOut=' + distanceOut +
-                            '&turnCountOut=' + turnCountOut, true);
+                            '&turnCountOut=' + turnCountOut +
+                            '&additionalValueOut=' + additionalValueOut, true);
 
                         xhr.onload = function() {
                             if (xhr.status >= 200 && xhr.status < 400) {

@@ -67,7 +67,7 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
     $report_id = $_GET[ 'rid' ];
 
-        $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','');
+        $report = new Attendance( '', '', '', '', '','','', '', '', '', '', '','','' ,'','','','','');
     $result = $report->viewAttendanceByID1( $conn, $report_id, $report );
 
     while ( $row = mysqli_fetch_assoc( $result ) ) {

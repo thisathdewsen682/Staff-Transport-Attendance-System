@@ -32,7 +32,11 @@ if ( isset( $_GET[ 'rno' ] ) ) {
     '',
     $_GET[ 'turnCountOut' ],
     '',
-    $_GET[ 'distanceOut' ] );
+    $_GET[ 'distanceOut' ],
+    '',
+    $_GET[ 'additionalValueOut' ],
+    '',
+    '' );
 
     $result = $obj->markOut( $conn, $obj, $rno );
 
