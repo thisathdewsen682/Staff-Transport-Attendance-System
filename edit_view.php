@@ -86,6 +86,7 @@ if ( isset( $_GET[ 'rid' ] ) ) {
         echo "
         <div class='container mt-3'>
             <form  method = 'POST' id = 'attendanceUpdate'>
+
             <input class='form-control form-control-lg' name = 'turn_count' type='hidden' placeholder='Staff Count'
                             aria-label='.form-control-lg example' value='" . $row[ 'turn_count' ] . "'>
             <input class='form-control form-control-lg' name = 'route_distance1' type='hidden' placeholder='Staff Count'
@@ -99,6 +100,18 @@ if ( isset( $_GET[ 'rid' ] ) ) {
 
 
                 <div class='row'>
+
+                    <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center'>
+                        <label for='vehicleNo' class='form-label'>Additional In</label>
+                        <input name = 'additional_in' class='form-control form-control-lg' type='text'placeholder='Vehicle No'
+                            aria-label='.form-control-lg example'  value='" . $row[ 'additional_in' ] . "'>
+                    </div>
+                    <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center'>
+                        <label for='staffCount' class='form-label'>Additional Out</label>
+                        <input class='form-control form-control-lg' name = 'aditional_out' type='text' placeholder='Staff Count'
+                            aria-label='.form-control-lg example' value='" . $row[ 'aditional_out' ] . "'>
+                    </div>
+
                     <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center'>
                         <label for='vehicleNo' class='form-label'>Vehicle No</label>
                         <input name = 'vehicle_no' class='form-control form-control-lg' type='text'placeholder='Vehicle No'

@@ -37,6 +37,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
         $outTime = $_POST[ 'endTime' ];
         $route_distance1 = $_POST[ 'route_distance1' ];
         $route_distance2 = $_POST[ 'route_distance2' ];
+        $additional_in = $_POST[ 'additional_in' ];
+        $aditional_out = $_POST[ 'aditional_out' ];
         $turn_count = $_POST[ 'turn_count' ];
 
         $driver = '0';
@@ -51,7 +53,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
             //echo $helper;
         }
 
-        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance1, $route_distance2, '', '', $ip, $emp_no );
+        $att = new Attendance( '', '', $vehicleNo, $driver, $helper, $staffCount, '', $inTime, $outTime, 'changed', '', currentTime(), $turn_count, $route_distance1, $route_distance2, $additional_in, $aditional_out, $ip, $emp_no );
 
         $result = $att->updateAttendanceById( $conn, $att, $id );
 
@@ -83,12 +85,14 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
         $startTime = $_POST[ 'startTime' ];
         $endTime = $_POST[ 'endTime' ];
         $status = $_POST[ 'status' ];
+        $additional_in = $_POST[ 'additional_in' ];
+        $aditional_out = $_POST[ 'additional_out' ];
         //$turn_count = $_POST[ 'turn_count' ];
         $route_distance = $_POST[ 'route_distance' ];
         //$route_distance_div = ( parseFloat( $route_distance )/2 );
         $route_distance_div = floatval( $route_distance ) / 2;
 
-        $att = new Attendance( '', '', $vehicle_no, $driver, $helper, $staff_count, '', $startTime, $endTime, 'changed', '', currentTime(), '', $route_distance_div, $route_distance_div, '', $emp_no );
+        $att = new Attendance( '', '', $vehicle_no, $driver, $helper, $staff_count, '', $startTime, $endTime, 'changed', '', currentTime(), '', $route_distance_div, $route_distance_div, $additional_in, $aditional_out, $ip, $emp_no );
 
         $result = $att->updateAttendanceById( $conn, $att, $id );
 

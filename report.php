@@ -286,7 +286,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         var blob = new Blob([s2ab(wbout)], {
             type: "application/octet-stream"
         });
-        var filename = 'Attendance_Data.xlsx';
+        var filename = 'Toner_Changed_Details.xlsx';
 
         // Create an anchor element and trigger a click event
         var a = document.createElement('a');

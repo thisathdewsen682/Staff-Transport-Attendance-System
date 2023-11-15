@@ -236,6 +236,24 @@
 
                         document.querySelector('#formAttEdit [name="status"]').value =
                             response.status;
+                        
+                        
+                        //additional input update
+
+
+                        document.querySelector('#formAttEdit [name="additional_in"]').value =
+                            response.additional_in;
+                        
+                        //  console.log(response.vehicle_no);
+                        
+                        document.querySelector('#formAttEdit [name="additional_out"]').value =
+                            response.aditional_out;
+
+
+
+
+
+
 
                         /*document.querySelector('#formAttEdit [name="turn_count"]').value =
                             response.turn_count;

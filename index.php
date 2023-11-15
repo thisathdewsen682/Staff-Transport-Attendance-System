@@ -251,7 +251,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
         if($result){
             echo '<div class = "row mt-2">
-            <div class = "col-lg-12 col-md-12 col-sm-12"><h2 class = "text-center bg-primary text-light p-1">Normal (8 -4)</h2></div>
+            <div class = "col-lg-12 col-md-12 col-sm-12"><h2 class = "text-center bg-primary text-light p-1"> 8 to 4 - Shift Buses</h2></div>
             </div>';
         }
 

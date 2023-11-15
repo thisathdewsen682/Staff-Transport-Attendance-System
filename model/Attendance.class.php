@@ -149,6 +149,8 @@ class Attendance {
     turn_count, 
     route_distance_in_km, 
     route_distance_out_km, 
+    additional_in, 
+    aditional_out, 
     (route_distance_in_km + route_distance_out_km) as full_route_distance_km
    
     FROM 
@@ -172,7 +174,7 @@ class Attendance {
     function updateAttendanceById( $conn, $att, $id ) {
 
         $sql = "UPDATE attendance_tbl SET vehicle_no = '".$att->vehicle_no."', driver = '".$att->driver."',helper = '".$att->helper."', staff_count = '".$att->staff_count."', mark_in = '".$att->mark_in."', mark_out = '".
-        $att->mark_out."', updated_at = '".$att->updated_at ."',  route_distance_in_km =  '".$att->route_distance_in_km."', route_distance_out_km =  '".$att->route_distance_out_km."',  updated_ip =  '".$att->updated_ip."', updated_empno =  '".$att->updated_emp_no."' WHERE attendance_id = '".$id."';";
+        $att->mark_out."', updated_at = '".$att->updated_at ."',  route_distance_in_km =  '".$att->route_distance_in_km."', route_distance_out_km =  '".$att->route_distance_out_km."', additional_in =  '".$att->additional_in."', aditional_out =  '".$att->additional_out."', updated_ip =  '".$att->updated_ip."', updated_empno =  '".$att->updated_emp_no."' WHERE attendance_id = '".$id."';";
         $result = mysqli_query( $conn, $sql );
         return $result;
 
@@ -269,6 +271,8 @@ FROM
     turn_count, 
     route_distance_in_km, 
     route_distance_out_km, 
+    additional_in, 
+    aditional_out, 
     (route_distance_in_km + route_distance_out_km) as full_route_distance_km
     FROM 
     attendance_tbl  WHERE attendance_id = "'.$id.'"';

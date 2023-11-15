@@ -82,6 +82,8 @@ if ( isset( $_GET[ 'attid' ] ) ) {
         $vehicle_no = $row[ 'vehicle_no' ];
         $mark_in = $row[ 'mark_in' ];
         $mark_out = $row[ 'mark_out' ];
+        $additional_in = $row[ 'additional_in' ];
+        $aditional_out = $row[ 'aditional_out' ];
 
         $status = $row[ 'status' ];
         $route_distance = $row[ 'full_route_distance_km' ];
@@ -96,6 +98,8 @@ if ( isset( $_GET[ 'attid' ] ) ) {
             'mark_out' => $mark_out,
             'status' => $status,
             'route_distance' => $route_distance_rounded,
+            'additional_in' => $additional_in,
+            'aditional_out' => $aditional_out,
             'turn_count' => $turn_count,
             'checked1' => $checked1,
             'checked2' => $checked2

@@ -303,6 +303,20 @@ if ( isset( $_SESSION[ 'emp_no' ] ) ) {
                                     <input type='time' name='endTime' id='endTime' class='form-control'></label>
                             </div>
 
+                            <!--additiona km update -->
+
+                            <div class='col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center'>
+                                <label for='additional_in' class='form-label w-100 text-center'>Additional In
+                                    <input type='text' name='additional_in' id='additional_in'
+                                        class='form-control  '></label>
+                            </div>
+                            <div class='col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center'>
+                                <label for='additional_out' class='form-label w-100 text-center'>Additional Out
+                                    <input type='text' name='additional_out' id='additional_out'
+                                        class='form-control'></label>
+                            </div>
+
+
                             <div class='col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center'>
                                 <label for='status' class='form-label w-100 text-center'>Status
                                     <input name='status' class='form-control ' type='text' placeholder='Status'
