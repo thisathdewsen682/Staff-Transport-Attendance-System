@@ -2,14 +2,13 @@
 session_start();
 include( 'includes/db_connect.php' );
 include( 'common/common_function.php' );
-
-if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
-
-    header( 'Location: login.php' );
+$emp_name =  'guest';
+if ( isset( $_SESSION[ 'emp_no' ] ) ) {
+   $emp_name =  $_SESSION[ 'emp_name' ];
 }
-$emp_no =  $_SESSION[ 'emp_no' ];
-$emp_name =  $_SESSION[ 'emp_name' ];
-$isadmin =  $_SESSION[ 'is_admin' ];
+
+//$emp_no =  $_SESSION[ 'emp_no' ];
+//$isadmin =  $_SESSION[ 'is_admin' ];
 
 
 ?>
@@ -140,7 +139,8 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         </button>
         <button type="button" class="btn btn-success" id="markOutAll">Markout All</button>
         <button type="button" class="btn btn-info">
-            <a href="includes/admin.php" class=" report" onclick="window.location.href='includes/admin.php'">Admin</a>
+            <a href="includes/admin.php" class=" report" onclick="window.location.href='includes/admin.php'">Admin
+                Portal</a>
         </button>
         <div class='row row  justify-content-center'>
 
@@ -148,7 +148,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
             // Start PHP session if not already started
             // Your database connection code here
             // $conn = mysqli_connect( ... );
-
+        $inactive = '';
         $sql = 'SELECT * FROM vehicle_detail WHERE type = "shift"  ORDER BY  route_no' ;
         $result = mysqli_query( $conn, $sql );
 
@@ -159,14 +159,23 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         }
 
         while ( $row = mysqli_fetch_assoc( $result ) ) {
-        
+            
+       
         $route_no = $row['route_no'];
-        
+        $additional = $row['route_distance2'];
+
+        if(!$additional > 0){
+            
+            $inactive = "disabled";
+        }else{
+            $inactive = "";
+        }
         
         $markIn = '';
         $markOut = '';
+        $employeeCount = '';
      
-        $sql1 = "SELECT `mark_in`,`mark_out` FROM `attendance_tbl` WHERE `route_no` = $route_no AND `created_at` = (SELECT MAX(`created_at`) FROM `attendance_tbl` WHERE `route_no` = $route_no) LIMIT 1";
+        $sql1 = "SELECT `mark_in`,`mark_out`,staff_count FROM `attendance_tbl` WHERE `route_no` = $route_no AND `created_at` = (SELECT MAX(`created_at`) FROM `attendance_tbl` WHERE `route_no` = $route_no) LIMIT 1";
 
         $result1 = mysqli_query( $conn, $sql1 );
         if($result1){
@@ -174,14 +183,18 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         while($row1 = mysqli_fetch_assoc($result1)){
             $markIn = $row1['mark_in'];
             $markOut = $row1['mark_out'];
+            $employeeCount = $row1['staff_count'];
+           //    echo $employeeCount;
         }
 
 
         }
+        
         echo "<div class='col-sm-4 col-md-4 col-lg-4 bus-no'>
 
                     <h6 class='in c'>Mark In:" . $markIn . "</h6>
                     <h6 class='out c'>Mark Out:" . $markOut . "</h6>
+                    <h6 class=''>Employee Count:" . $employeeCount . "</h6>
                     <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
                     <label><input type='checkbox' class = 'checkbox-markout' name='selected_items[]' value=".$route_no.">&nbsp;Dont Mark Out</label><br>
 
@@ -195,7 +208,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                     
                     <div class='inline-inputs'>
                         <input type='text' name='vhno' placeholder='Vehicle No' class='text-center  atform' value = '".$row['vehicle_no']."'>
-                        <input type='text' name='employee_count' placeholder='Employee Count' class='text-center atform' >
+                        <input type='text' name='employee_count' placeholder='Employee Count' class='text-center atform'>
 
 <!--turn count value -->
                          <input type='hidden' data-id = '".$row['route_no']."' name='turn_count_in' placeholder='turn_count' class='text-center atform' value = '1' >
@@ -224,7 +237,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                                 <input data-id = '".$row['route_no']."' type='checkbox' name='distance_1' value='".$row['route_distance1']."' checked> 1
                             </label>
                             <label>
-                                <input data-id = '".$row['route_no']."' type='checkbox' name='distance_2' value='".$row['route_distance2']."'> Aditional Milage
+                                <input $inactive data-id = '".$row['route_no']."' type='checkbox' name='distance_2' value='".$row['route_distance2']."'> Aditional Milage
                             </label>
                         </div>
                     </div>
@@ -257,13 +270,22 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
         while ( $row = mysqli_fetch_assoc( $result ) ) {
         
+     
         $route_no = $row['route_no'];
+        $additional = $row['route_distance2'];
+
+        if(!$additional > 0){
+            
+            $inactive = "disabled";
+        }else{
+            $inactive = "";
+        }
         
         
         $markIn = '';
         $markOut = '';
-     
-        $sql1 = "SELECT `mark_in`,`mark_out` FROM `attendance_tbl` WHERE `route_no` = $route_no AND `created_at` = (SELECT MAX(`created_at`) FROM `attendance_tbl` WHERE `route_no` = $route_no) LIMIT 1";
+        $employeeCount = '';
+        $sql1 = "SELECT `mark_in`,`mark_out`,staff_count FROM `attendance_tbl` WHERE `route_no` = $route_no AND `created_at` = (SELECT MAX(`created_at`) FROM `attendance_tbl` WHERE `route_no` = $route_no) LIMIT 1";
 
         $result1 = mysqli_query( $conn, $sql1 );
         if($result1){
@@ -271,6 +293,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         while($row1 = mysqli_fetch_assoc($result1)){
             $markIn = $row1['mark_in'];
             $markOut = $row1['mark_out'];
+            $employeeCount = $row1['staff_count'];
         }
 
 
@@ -279,6 +302,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
 
                     <h6 class='in c'>Mark In:" . $markIn . "</h6>
                     <h6 class='out c'>Mark Out:" . $markOut . "</h6>
+                     <h6 class=''>Employee Count:" . $employeeCount . "</h6>
                     <h6 class='out w-100 text-right text-center''><a href='report.php?rno=".$route_no."'>
                     <label><input type='checkbox' class = 'checkbox-markout' name='selected_items[]' value=".$route_no.">&nbsp;Dont Mark Out</label><br>
 
@@ -315,7 +339,7 @@ Print QR</a>-->
                                 <input data-id = '".$row['route_no']."' type='checkbox' name='distance_1' value='".$row['route_distance1']."' checked> 1
                             </label>
                             <label>
-                                <input data-id = '".$row['route_no']."' type='checkbox' name='distance_2' value='".$row['route_distance2']."'> Aditional Milage
+                                <input $inactive data-id = '".$row['route_no']."' type='checkbox' name='distance_2' value='".$row['route_distance2']."'> Aditional Milage
                             </label>
                         </div>
                     </div>

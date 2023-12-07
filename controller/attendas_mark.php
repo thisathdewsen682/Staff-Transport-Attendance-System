@@ -4,7 +4,7 @@ include( '../includes/db_connect.php' );
 include( '../common/common_function.php' );
 include( '../model/Attendance.class.php' );
 
-if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
+/*if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 
     header( 'Location: login.php' );
 }
@@ -12,7 +12,7 @@ if ( !isset( $_SESSION[ 'emp_no' ] ) ) {
 $emp_no =  $_SESSION[ 'emp_no' ];
 $emp_name =  $_SESSION[ 'emp_name' ];
 $isadmin =  $_SESSION[ 'is_admin' ];
-
+*/
 if ( $_SERVER[ 'REQUEST_METHOD' ]  == 'POST' && $_POST[ 'action' ] == 'in' ) {
     // Sanitize and validate input
     //echo $_POST[ 'checked' ];

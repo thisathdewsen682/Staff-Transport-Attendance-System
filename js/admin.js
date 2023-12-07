@@ -51,7 +51,7 @@
 
         //calculate turn count
         function calculateSum() {
-            var columnIdxToSum = 13; // Assuming 7th column (index 6) is the column you want to sum
+            var columnIdxToSum = 12; // Assuming 7th column (index 6) is the column you want to sum
             var filteredData = table.column(columnIdxToSum, {
                 "filter": "applied"
             }).data();
@@ -61,7 +61,7 @@
             }, 0);
 
 
-            var columnIdxToSum = 12; // Assuming 7th column (index 6) is the column you want to sum
+            var columnIdxToSum = 11; // Assuming 7th column (index 6) is the column you want to sum
             var filteredData = table.column(columnIdxToSum, {
                 "filter": "applied"
             }).data();
@@ -74,10 +74,9 @@
             document.getElementById('turncount').value = sumTurn;
             console.log('Sum of column:', sum);
             console.log('Sum of column:', sumTurn);
-
             
-           var column13Data = table.column(13, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
-            var column14Data = table.column(14, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
+            var column13Data = table.column(12, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
+            var column14Data = table.column(13, {page: 'current'}).data(); // Adjust index as needed (assuming 0-based index)
 
 // Sum the values in columns 13 and 14
             var sumColumn13 = column13Data.reduce(function(acc, val) {

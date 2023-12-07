@@ -84,7 +84,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                     <th class='text-center' scope='col'>Mark In Time</th>
                     <th class='text-center' scope='col'>Mark Out</th>
                     <th class='text-center' scope='col'>Status</th>
-                    <th class='text-center' scope='col'>Created At</th>
+                    <!-- <th class='text-center' scope='col'>Created At</th>-->
                     <th class='text-center' scope='col'>Updated At</th>
                     <th class='text-center' scope='col'>Edit</th>
                     <th class='text-center' scope='col'>Delete</th>
@@ -122,7 +122,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                             <td>".$row[ 'mark_in' ]."</td>
                             <td>".$row[ 'mark_out' ]."</td>
                             <td>".$row[ 'status' ]."</td>
-                            <td>".$row[ 'created_at' ]."</td> 
+                         <!--   <td>".$row[ 'created_at' ]."</td> -->
                             <td>".$row[ 'updated_at' ]."</td> 
                             <td><a href = 'edit_view.php?rid=$id' class = 'edit btn btn-success'>Edit</td> 
                             
@@ -159,7 +159,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
                     <td>".$row[ 'mark_in' ]."</td>
                     <td>".$row[ 'mark_out' ]."</td>
                     <td>".$row[ 'status' ]."</td>
-                    <td>".$row[ 'created_at' ]."</td>
+                   <!-- <td>".$row[ 'created_at' ]."</td>-->
                     <td>".$row[ 'updated_at' ]."</td>
                     <td><a href='edit_view.php?rid=$id'>Edit</td>
                     <td><button onclick='promptForPassword($id)' class='btn btn-danger'>Delete</button></td>
@@ -286,7 +286,7 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         var blob = new Blob([s2ab(wbout)], {
             type: "application/octet-stream"
         });
-        var filename = 'Toner_Changed_Details.xlsx';
+        var filename = 'Attendance_Data.xlsx';
 
         // Create an anchor element and trigger a click event
         var a = document.createElement('a');
@@ -315,6 +315,26 @@ $isadmin =  $_SESSION[ 'is_admin' ];
         }
     }
     </script>
+
+
+
+
+    <script>
+        //export calculation row 
+
+
+
+
+        
+    </script>
+
+
+
+
+
+
+
+
     <script src="FileSaver.js-master/FileSaver.min.js"></script>
 
     <script src="sheetjs-github/dist/xlsx.full.min.js"></script>

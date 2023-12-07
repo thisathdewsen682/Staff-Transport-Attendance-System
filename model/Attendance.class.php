@@ -236,7 +236,6 @@ FROM
                     <td>".$row[ 'mark_in' ]."</td>
                     <td>".$row[ 'mark_out' ]."</td>
                     <td>".$row[ 'status' ]."</td>
-                    <td>".$row[ 'created_at' ]."</td>
                     <td>".$row[ 'updated_at' ]."</td>
                     <td>".$row[ 'turn_count' ]."</td>
                     <td>".$rounded_distance."</td>
@@ -284,6 +283,63 @@ FROM
             mysqli_connect_error( $conn, $result );
         }
         return $result;
+
+    }
+
+    static function getCalculationReport( $conn, $startDate, $endDate, $routeNo ) {
+        $records = array();
+        // echo $startDate;
+        //echo $endDate;
+        if ( empty( $routeNo ) ) {
+            $sql = "SELECT
+            route_no as 'Route Number',
+            route as 'Route',
+            SUM(turn_count) AS 'No of turns',
+            SUM(additional_in + aditional_out) AS 'Additional Mileage(Km)',
+            ROUND((SUM(route_distance_in_km + route_distance_out_km) + SUM(additional_in + aditional_out)), 2) AS 'Total Operated Km',
+            SUM(staff_count) AS Staff
+          
+        FROM
+            attendance_tbl
+        WHERE
+            (date BETWEEN '$startDate' AND '$endDate')
+        GROUP BY 
+            route_no
+        ORDER BY 
+            route_no ASC";
+
+        } else {
+            $sql = "SELECT
+            route_no as 'Route Number',
+            route as 'Route',
+            SUM(turn_count) AS 'No of turns',
+            SUM(additional_in + aditional_out) AS 'Additional Mileage(Km)',
+            ROUND((SUM(route_distance_in_km + route_distance_out_km) + SUM(additional_in + aditional_out)), 2) AS 'Total Operated Km',
+            SUM(staff_count) AS Staff
+    FROM 
+        attendance_tbl
+    WHERE 
+        (date BETWEEN '$startDate' AND '$endDate' AND route_no = '$routeNo')
+    GROUP BY 
+        route_no";
+        }
+        //echo $sql;
+        $result = mysqli_query( $conn, $sql );
+
+        if ( $result ) {
+            while ( $row = mysqli_fetch_assoc( $result ) ) {
+                $records[] = $row;
+
+            }
+        } else {
+            // Handle the error more effectively, for example, log the error or send a response
+            echo 'Error: ' . mysqli_error( $conn );
+        }
+
+        // Always close the database connection after usage
+        mysqli_close( $conn );
+
+        return $records;
 
     }
 }
